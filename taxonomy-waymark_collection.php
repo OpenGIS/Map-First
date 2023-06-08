@@ -1,27 +1,11 @@
-<?php 
-$collection = get_queried_object();
-
-get_header(); ?>
+<?php get_header(); ?>
 
 <article id="collection-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<?php echo do_shortcode('[' . Waymark_Config::get_item('shortcode') . ' collection_id="' . $collection->term_id . '"]'); ?>
-		
-<?php
-		//Create Collection object
-// 		$Collection = new Waymark_Collection($collection->term_id);
-// 		
-// 		$objects = array();
-// 		foreach($Collection->Maps as $Map) {
-// 			//Ensure we have map_data and that it is valid JSON
-// 			if(isset($Map->data['map_data']) && $FeatureCollection = json_decode($Map->data['map_data'])) {
-// 				$objects = array_merge_recursive($objects, waymark_geojson_to_objects($FeatureCollection));				
-// 			}
-// 		}
-// 		
-// 		echo waymark_list_objects($objects);									
-	?>
 
-	<p class="lead text-center mb-5"><?php echo $collection->description; ?></p>
+	<!-- Shortcode with all Maps in Collection -->
+	<?php echo do_shortcode('[Waymark collection_id="' . get_queried_object()->term_id . '"]'); ?>
+		
+	<p class="lead text-center mb-5"><?php echo get_queried_object()->description; ?></p>
 </article>
 
 <?php map_first_archive_pagination(); ?>
