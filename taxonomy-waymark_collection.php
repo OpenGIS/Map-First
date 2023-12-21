@@ -3,7 +3,7 @@
 <article id="collection-<?php the_ID(); ?>" <?php post_class(); ?>>
 
 	<!-- Shortcode with all Maps in Collection -->
-	<?php echo do_shortcode('[Waymark collection_id="' . get_queried_object()->term_id . '"]'); ?>
+	<?php echo do_shortcode('[Waymark shortcode_header="0" collection_id="' . get_queried_object()->term_id . '"]'); ?>
 		
 	<p class="lead text-center mb-5"><?php echo get_queried_object()->description; ?></p>
 </article>
