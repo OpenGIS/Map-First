@@ -1,23 +1,31 @@
-<?php get_header(); ?>
+<?php get_header();?>
 
 <?php
 //Content
-if(have_posts()) {
+if (have_posts()) {
 	//The Loop
-	while(have_posts()) {
+	while (have_posts()) {
 		the_post();
-		get_template_part('template-parts/content/content');
-	}
-
-	// Previous/next page navigation.
-	//twentynineteen_the_posts_navigation();
+		?>
+		<article id="post-<?php the_ID();?>" <?php post_class();?>>
+				<h1><?php the_title();?></h1>
+				<?php the_content();?>
+		</article>
+<?php
+}
 //No Content
 } else {
-	get_template_part('template-parts/content/content', 'none');
+	?>
+	<article id="not-found" <?php post_class();?>>
+		<h1>Not Found</h1>
+
+		<?php echo do_shortcode('[Waymark file_url="' . get_template_directory_uri() . '/assets/geo/404.geojson"]'); ?>
+	</article>
+<?php
 }
 ?>
 
-<?php map_first_archive_pagination(); ?>
+<?php map_first_archive_pagination();?>
 
-<?php get_sidebar(); ?>
-<?php get_footer(); ?>
+<?php get_sidebar();?>
+<?php get_footer();?>

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <!--[if IE 7]>
-<html class="ie ie7" <?php language_attributes(); ?>>
+<html class="ie ie7" <?php language_attributes();?>>
 <![endif]-->
 <!--[if IE 8]>
-<html class="ie ie8" <?php language_attributes(); ?>>
+<html class="ie ie8" <?php language_attributes();?>>
 <![endif]-->
 <!--[if !(IE 7) & !(IE 8)]><!-->
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes();?>>
 <!--<![endif]-->
 	<head>
-		<meta charset="<?php bloginfo('charset'); ?>" />
+		<meta charset="<?php bloginfo('charset');?>" />
 		<meta name="viewport" content="width=device-width" />
-		<title><?php wp_title('|', true, 'right'); ?><?php echo get_bloginfo( 'name', 'display' ); ?></title>
+		<title><?php wp_title('|', true, 'right');?><?php echo get_bloginfo('name', 'display'); ?></title>
 		<link rel="pingback" href="<?php echo esc_url(get_bloginfo('pingback_url')); ?>">
-		<?php wp_head(); ?>
-		
+		<?php wp_head();?>
+
 		<style type="text/css">
 			.navbar, #navbarHeader, .navbar select {
 				background-color: <?php echo get_theme_mod('map_first_header_background', '#212529'); ?> !important;
@@ -33,77 +33,85 @@
 			main a,
 			.pagination a {
 				color: <?php echo get_theme_mod('map_first_link_color', '#0056b3'); ?>;
-			}	
+			}
 			.page-item.active .page-link {
-				border-color: <?php echo get_theme_mod('map_first_link_color', '#0056b3'); ?>;			
-				background-color: <?php echo get_theme_mod('map_first_link_color', '#0056b3'); ?>;			
+				border-color: <?php echo get_theme_mod('map_first_link_color', '#0056b3'); ?>;
+				background-color: <?php echo get_theme_mod('map_first_link_color', '#0056b3'); ?>;
 			}
 		</style>
 	</head>
-	<body <?php body_class(); ?>>
-		<?php wp_body_open(); ?>
-		
+	<body <?php body_class();?>>
+		<?php wp_body_open();?>
+
 		<!-- START Header -->
 		<header>
 			<div class="collapse bg-dark" id="navbarHeader">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-8 col-md-7 py-4">
-							<?php if(function_exists('dynamic_sidebar')) dynamic_sidebar('map-first-header-content'); ?>
+							<?php if (function_exists('dynamic_sidebar')) {
+	dynamic_sidebar('map-first-header-content');
+}
+?>
 						</div>
 						<div class="col-sm-4 offset-md-1 py-4">
-							<?php 
-								//Thanks! https://wordpress.stackexchange.com/a/29432/11684
-								$theme_locations = get_nav_menu_locations();
-								if(array_key_exists('map-first-header-nav', $theme_locations)) {
-									$menu_obj = get_term($theme_locations['map-first-header-nav'], 'nav_menu');
-									$menu_name = $menu_obj->name;								
-								} else {
-									$menu_name = '';								
-								}
-								
-								$menu_list = wp_nav_menu(array(
-									'theme_location' => 'map-first-header-nav',
-									'container' => false,
-									'menu_class' => 'list-unstyled',
-									'echo' => false,
-									'fallback_cb' => false
-								));
-								$menu_list = str_replace(
-									array(
-										'<a href',
-										'sub-menu'
-									),
-									array(
-										'<a class="text-white" href',
-										'sub-menu list-unstyled pl-4'											
-									),
-									$menu_list
-								);
-							?>
+							<?php
+//Thanks! https://wordpress.stackexchange.com/a/29432/11684
+$theme_locations = get_nav_menu_locations();
+if (array_key_exists('map-first-header-nav', $theme_locations)) {
+	$menu_obj = get_term($theme_locations['map-first-header-nav'], 'nav_menu');
+
+	if ($menu_obj && isset($menu_obj->name)) {
+		$menu_name = $menu_obj->name;
+	} else {
+		$menu_name = '';
+	}
+} else {
+	$menu_name = '';
+}
+
+$menu_list = wp_nav_menu(array(
+	'theme_location' => 'map-first-header-nav',
+	'container' => false,
+	'menu_class' => 'list-unstyled',
+	'echo' => false,
+	'fallback_cb' => false,
+));
+$menu_list = str_replace(
+	array(
+		'<a href',
+		'sub-menu',
+	),
+	array(
+		'<a class="text-white" href',
+		'sub-menu list-unstyled pl-4',
+	),
+	$menu_list
+);
+?>
 							<h4 class="text-white"><?php echo $menu_name; ?></h4>
 							<?php echo $menu_list; ?>
 						</div>
 					</div>
 				</div>
 			</div>
-		
+
 			<div class="navbar navbar-dark bg-dark shadow-sm mb-2">
 				<div class="container justify-content-between">
 					<div class="navbar-left">
 						<!-- Brand -->
-						<?php if(is_front_page()) : ?>
-						<span class="navbar-brand"><?php if($header_logo = get_theme_mod('map_first_header_logo', '')) : ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo( 'name', 'display' ); ?>" /><?php endif; ?><?php echo get_bloginfo( 'name', 'display' ); ?></span>
-						<?php else : ?>
-						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="navbar-brand"><?php if($header_logo = get_theme_mod('map_first_header_logo', '')) : ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo( 'name', 'display' ); ?>" /><?php endif; ?><?php echo get_bloginfo( 'name', 'display' ); ?></a>
-						<?php endif; ?>
-																	
+						<?php if (is_front_page()): ?>
+						<span class="navbar-brand"><?php if ($header_logo = get_theme_mod('map_first_header_logo', '')): ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo('name', 'display'); ?>" /><?php endif;?><?php echo get_bloginfo('name', 'display'); ?></span>
+						<?php else: ?>
+						<a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand"><?php if ($header_logo = get_theme_mod('map_first_header_logo', '')): ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo('name', 'display'); ?>" /><?php endif;?><?php echo get_bloginfo('name', 'display'); ?></a>
+						<?php endif;?>
+
 						<!-- Breadcrumb -->
-						<div class="navbar-text pt-0">					
-							<?php map_first_breadcrumb(); ?>
+						<div class="navbar-text pt-0">
+							<?php map_first_breadcrumb();?>
 						</div>
   				</div>
-  				
+
   				<!-- Menu Toggle -->
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -111,7 +119,7 @@
 				</div>
 			</div>
 		</header>
-		<!-- END Header -->		
-		
+		<!-- END Header -->
+
 		<!-- START Main -->
 		<main role="main" class="container">
