@@ -23,6 +23,30 @@ function map_first_customize_register($wp_customize) {
 		'section' => 'map_first_section',
 	)));
 
+	$wp_customize->add_setting('map_first_body_background', array(
+		'default' => '#111',
+		'transport' => 'refresh',
+		'sanitize_callback' => 'sanitize_hex_color',
+	));
+
+	$wp_customize->add_control('map_first_body_background', array(
+		'label' => 'Page Background Colour',
+		'section' => 'map_first_section',
+		'type' => 'color',
+	));
+
+	$wp_customize->add_setting('map_first_body_color', array(
+		'default' => '#eee',
+		'transport' => 'refresh',
+		'sanitize_callback' => 'sanitize_hex_color',
+	));
+
+	$wp_customize->add_control('map_first_body_color', array(
+		'label' => 'Page Text Colour',
+		'section' => 'map_first_section',
+		'type' => 'color',
+	));
+
 	$wp_customize->add_setting('map_first_header_background', array(
 		'default' => '#212529',
 		'transport' => 'refresh',

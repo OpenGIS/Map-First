@@ -1,13 +1,40 @@
+<?php
+//Thanks! https://wordpress.stackexchange.com/a/29432/11684
+$theme_locations = get_nav_menu_locations();
+if (array_key_exists('map-first-header-nav', $theme_locations)) {
+	$menu_obj = get_term($theme_locations['map-first-header-nav'], 'nav_menu');
+
+	if ($menu_obj && isset($menu_obj->name)) {
+		$menu_name = $menu_obj->name;
+	} else {
+		$menu_name = '';
+	}
+} else {
+	$menu_name = '';
+}
+
+$menu_list = wp_nav_menu(array(
+	'theme_location' => 'map-first-header-nav',
+	'container' => false,
+	'menu_class' => 'list-unstyled',
+	'echo' => false,
+	'fallback_cb' => false,
+));
+$menu_list = str_replace(
+	array(
+		'<a href',
+		'sub-menu',
+	),
+	array(
+		'<a class="text-white" href',
+		'sub-menu list-unstyled pl-4',
+	),
+	$menu_list
+);
+?>
+
 <!DOCTYPE html>
-<!--[if IE 7]>
-<html class="ie ie7" <?php language_attributes();?>>
-<![endif]-->
-<!--[if IE 8]>
-<html class="ie ie8" <?php language_attributes();?>>
-<![endif]-->
-<!--[if !(IE 7) & !(IE 8)]><!-->
 <html <?php language_attributes();?>>
-<!--<![endif]-->
 	<head>
 		<meta charset="<?php bloginfo('charset');?>" />
 		<meta name="viewport" content="width=device-width" />
@@ -16,9 +43,15 @@
 		<?php wp_head();?>
 
 		<style type="text/css">
+			body {
+				background-color: <?php echo get_theme_mod('map_first_body_background', '#111'); ?>;
+				color: <?php echo get_theme_mod('map_first_body_color', '#eee'); ?>;
+			}
+			.waymark-shortcode .waymark-header,
 			.navbar, #navbarHeader, .navbar select {
 				background-color: <?php echo get_theme_mod('map_first_header_background', '#212529'); ?> !important;
 			}
+			.waymark-shortcode .waymark-header,
 			.navbar *, #navbarHeader * {
 				color: <?php echo get_theme_mod('map_first_header_color', '#fff'); ?> !important;
 			}
@@ -55,40 +88,7 @@
 ?>
 						</div>
 						<div class="col-sm-4 offset-md-1 py-4">
-							<?php
-//Thanks! https://wordpress.stackexchange.com/a/29432/11684
-$theme_locations = get_nav_menu_locations();
-if (array_key_exists('map-first-header-nav', $theme_locations)) {
-	$menu_obj = get_term($theme_locations['map-first-header-nav'], 'nav_menu');
 
-	if ($menu_obj && isset($menu_obj->name)) {
-		$menu_name = $menu_obj->name;
-	} else {
-		$menu_name = '';
-	}
-} else {
-	$menu_name = '';
-}
-
-$menu_list = wp_nav_menu(array(
-	'theme_location' => 'map-first-header-nav',
-	'container' => false,
-	'menu_class' => 'list-unstyled',
-	'echo' => false,
-	'fallback_cb' => false,
-));
-$menu_list = str_replace(
-	array(
-		'<a href',
-		'sub-menu',
-	),
-	array(
-		'<a class="text-white" href',
-		'sub-menu list-unstyled pl-4',
-	),
-	$menu_list
-);
-?>
 							<h4 class="text-white"><?php echo $menu_name; ?></h4>
 							<?php echo $menu_list; ?>
 						</div>
