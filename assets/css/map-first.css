@@ -62,7 +62,10 @@ main article {
 	border: none !important;
 }
 .waymark-shortcode .waymark-header {
-	border: none !important;
+	font-size: 13px;
+}
+.waymark-shortcode .waymark-header .waymark-title {
+	font-weight: normal !important;
 }
 
 /* Mobile */
