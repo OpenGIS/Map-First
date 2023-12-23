@@ -6,8 +6,13 @@ if (have_posts()) {
 	//The Loop
 	while (have_posts()) {
 		the_post();
-		get_template_part('template-parts/content/content');
-	}
+		?>
+		<article id="post-<?php the_ID();?>" <?php post_class();?>>
+				<h1><?php the_title();?></h1>
+				<?php the_content();?>
+		</article>
+	<?php
+}
 
 	echo '<hr />' . "\n";
 

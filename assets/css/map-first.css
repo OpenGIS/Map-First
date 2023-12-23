@@ -25,9 +25,22 @@ a.navbar-brand {
 }
 
 /* Home */
-body.home article > h1 {
-	/*	display: none;*/
+/*
+body.home article .waymark-shortcode {
+	position: absolute;
+	top: 60px;
+	left: 0;
+	width: 100%;
+
+	height: calc(100% - 60px);
 }
+body.home.admin-bar article .waymark-shortcode {	
+	top: 112px;
+	height: calc(100% - 112px);
+}
+body.home article .waymark-shortcode .waymark-map {	
+	height: 100% !important;
+}*/
 
 /* Collection Archive */
 body.archive.tax-waymark_collection .waymark-title {
@@ -35,7 +48,8 @@ body.archive.tax-waymark_collection .waymark-title {
 }
 
 /* Main Content */
-main a:visited {
+main article {
+	font-size: 17px;
 }
 
 /* Leaflet  */

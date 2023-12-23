@@ -44,8 +44,8 @@ $menu_list = str_replace(
 
 		<style type="text/css">
 			body {
-				background-color: <?php echo get_theme_mod('map_first_body_background', '#111'); ?>;
-				color: <?php echo get_theme_mod('map_first_body_color', '#eee'); ?>;
+				background-color: <?php echo get_theme_mod('map_first_body_background', '#eeeeee'); ?>;
+				color: <?php echo get_theme_mod('map_first_body_color', '#111111'); ?>;
 			}
 			.waymark-shortcode .waymark-header,
 			.navbar, #navbarHeader, .navbar select {

@@ -24,7 +24,7 @@ function map_first_customize_register($wp_customize) {
 	)));
 
 	$wp_customize->add_setting('map_first_body_background', array(
-		'default' => '#111',
+		'default' => '#eeeeee',
 		'transport' => 'refresh',
 		'sanitize_callback' => 'sanitize_hex_color',
 	));
@@ -36,7 +36,7 @@ function map_first_customize_register($wp_customize) {
 	));
 
 	$wp_customize->add_setting('map_first_body_color', array(
-		'default' => '#eee',
+		'default' => '#111111',
 		'transport' => 'refresh',
 		'sanitize_callback' => 'sanitize_hex_color',
 	));
