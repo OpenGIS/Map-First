@@ -15,7 +15,7 @@ foreach ($Map->get_posts() as $map) {
 
 	$overlays = array_merge_recursive($overlays, Waymark_GeoJSON::features_by_overlay_type($map_data));
 }
-Waymark_Helper::debug($overlays, true);
+Waymark_Helper::debug(map_first_list_overlays($overlays));
 
 get_header();?>
 

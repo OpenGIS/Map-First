@@ -353,7 +353,7 @@ function map_first_list_overlays(Array $overlays = []) {
 		return $out;
 	}
 
-	//Waymark_Helper::debug($overlays);
+	Waymark_Helper::debug($overlays);
 
 	foreach ($overlays as $overlay_type => $overlay) {
 		// $overlay must be an array
@@ -361,36 +361,50 @@ function map_first_list_overlays(Array $overlays = []) {
 			continue;
 		}
 
+		$out .= '<div class="map-first-overlays-list">' . "\n";
+
 		switch ($overlay_type) {
 		case 'markers':
-			$out .= '<p>Markers:</p>' . "\n";
+			// Wrapper
+			$out .= '<div class="map-first-overlays map-first-markers">' . "\n";
+
+			// Every marker type
 			$out .= '<ul>' . "\n";
 			foreach ($overlay as $marker_type => $markers) {
 				$out .= '<li>' . $marker_type . ' (' . sizeof($markers) . ')</li>' . "\n";
 			}
 			$out .= '</ul>' . "\n";
+			$out .= '</div>' . "\n";
 
 			break;
 		case 'lines':
-			$out .= '<p>Lines:</p>' . "\n";
-			$out .= '<ul>' . "\n";
+			// Wrapper
+			$out .= '<div class="map-first-overlays map-first-lines">' . "\n";
+
+			// Every line type
 			foreach ($overlay as $line_type => $lines) {
 				$out .= '<li>' . $line_type . ' (' . sizeof($lines) . ')</li>' . "\n";
 			}
-			$out .= '</ul>' . "\n";
+			$out .= '</div>' . "\n";
 
 			break;
 		case 'shapes':
-			$out .= '<p>Shapes:</p>' . "\n";
+			// Wrapper
+			$out .= '<div class="map-first-overlays map-first-shapes">' . "\n";
+
+			// Every shape type
 			$out .= '<ul>' . "\n";
 			foreach ($overlay as $shape_type => $shapes) {
 				$out .= '<li>' . $shape_type . ' (' . sizeof($shapes) . ')</li>' . "\n";
 			}
 			$out .= '</ul>' . "\n";
+			$out .= '</div>' . "\n";
 
 			break;
 		}
 	}
+
+	$out .= '</div>' . "\n";
 
 	return $out;
 }
