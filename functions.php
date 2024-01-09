@@ -403,6 +403,9 @@ function map_first_list_overlays(Array $overlays = []) {
 					$marker_data = $marker['properties'];
 
 					// TODO!
+					$icon_data = Waymark_Helper::build_icon_data($type_data);
+
+					Waymark_Helper::debug($icon_data, false);
 
 					//Output marker
 					$out .= '			<div class="map-first-overlay">' . "\n";
