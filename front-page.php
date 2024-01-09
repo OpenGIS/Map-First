@@ -23,6 +23,17 @@ get_header();?>
 <?php get_sidebar();?>
 
 <script>
+	/**
+	 * Callback function for the Map
+	 *
+	 * This function is called when Waymark has finished loading to appropriate Shortcode.
+	 *
+	 * Learn More
+	 *
+	 * https://www.waymark.dev/docs/callback-function/
+	 *
+	 **/
+
 	function map_first_home(Waymark_Instance) {
 <?php
 foreach ($Map->get_posts() as $map) {

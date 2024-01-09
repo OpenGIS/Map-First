@@ -1,4 +1,18 @@
-<?php get_header();?>
+<?php
+
+/**
+ * Default Template
+ *
+ * This is the default template for the theme. It is used when a more specific
+ * template can not be found to display the content.
+ *
+ * Learn More
+ *
+ * https://developer.wordpress.org/themes/basics/template-hierarchy/
+ *
+ **/
+
+get_header();?>
 
 <?php
 //Content

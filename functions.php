@@ -1,5 +1,46 @@
 <?php
 
+/**
+ * functions.php
+ *
+ * This is a special file that WordPress looks for in the theme folder. It
+ * contains all of the functions that power the theme.
+ *
+ * Learn More
+ *
+ * https://developer.wordpress.org/themes/basics/theme-functions/
+ *
+ **/
+
+// Check for Waymark
+if (!class_exists('Waymark_Helper')) {
+
+	// Admin
+	if (is_admin() && current_user_can('manage_options')) {
+		// Display admin notice
+		add_action('admin_notices', function () {
+			echo '<div class="error"><p>';
+
+			// Plugin exists, but is not active
+			if (file_exists(WP_PLUGIN_DIR . '/waymark/Waymark.php')) {
+				$activate_url = wp_nonce_url(admin_url('plugins.php?action=activate&plugin=waymark/Waymark.php'), 'activate-plugin_waymark/Waymark.php');
+
+				echo '<b>Map First</b> requires <a href="https://www.waymark.dev/">Waymark</a> | <a href="' . $activate_url . '">Activate &raquo;</a>.';
+				//	Plugin not installed
+			} else {
+				$install_url = wp_nonce_url(admin_url('update.php?action=install-plugin&plugin=waymark'), 'install-plugin_waymark');
+
+				echo '<b>Map First</b> requires <a href="https://www.waymark.dev/">Waymark</a> | <a href="' . $install_url . '">Install &raquo;</a>.';
+			}
+
+			echo '</p></div>';
+		});
+		// Front
+	} else {
+		die('<h1>Map First requires <a href="https://www.waymark.dev/">Waymark</a>!</h1>');
+	}
+}
+
 function map_first_pre_get_posts($query) {
 	if (is_archive() && is_tax('waymark_collection')) {
 		$query->set('order', 'ASC');
