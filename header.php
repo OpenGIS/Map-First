@@ -43,7 +43,8 @@ $menu_list = str_replace(
 		<?php wp_head();?>
 
 		<style type="text/css">
-			body {
+			/* Reset common HTML elements */
+			html, body, pre, code, strong, b, ol, ul, li, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
 				background-color: <?php echo get_theme_mod('map_first_body_background', '#eeeeee'); ?>;
 				color: <?php echo get_theme_mod('map_first_body_color', '#111111'); ?>;
 			}

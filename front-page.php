@@ -15,7 +15,7 @@ get_header();?>
 <div class="row">
 	<?php foreach ($Map->get_posts() as $map): ?>
 	<article class="col-4 py-4">
-		<?php echo do_shortcode('[Waymark map_id="' . $map->ID . '"  map_height="300" shortcode_header="1" show_gallery="0" ]'); ?>
+		<?php Waymark_Helper::debug($map, false);?>
 	</article>
 	<?php endforeach;?>
 </div>
@@ -26,26 +26,46 @@ get_header();?>
 	/**
 	 * Callback function for the Map
 	 *
-	 * This function is called when Waymark has finished loading to appropriate Shortcode.
+	 * This **JavaScript** function is called when Waymark has finished loading to appropriate Shortcode.
+	 *
+	 * It is passed a single argument - the Waymark_Instance object.
 	 *
 	 * Learn More
 	 *
 	 * https://www.waymark.dev/docs/callback-function/
 	 *
 	 **/
-
 	function map_first_home(Waymark_Instance) {
 <?php
+$i = 1;
 foreach ($Map->get_posts() as $map) {
-	$map_data = get_post_meta($map->ID, 'waymark_map_data', true);
 
-	//Modify map data
-	$map_data = Waymark_Helper::add_map_link_to_description($map->ID, $map->post_title, $map_data);
+	// Setting for Embed / Fetch via XJAX
 
-	echo 'Waymark_Instance.load_json(' . $map_data . ');' . "\n";
+	// Embed
+	if ('embed' === Waymark_Config::get_setting('misc', 'collection_options', 'load_method')) {
+		$map_data = get_post_meta($map->ID, 'waymark_map_data', true);
 
+		//Modify map data
+		$map_data = Waymark_Helper::add_map_link_to_description($map->ID, $map->post_title, $map_data);
+
+		echo 'Waymark_Instance.load_json(' . $map_data . ');' . "\n";
+		// AJAX
+	} else {
+		//Reset view (last map only)
+		if ($i == sizeof($Map->get_posts())) {
+			$reset_view = 'true';
+		} else {
+			$reset_view = 'false';
+		}
+
+		echo 'waymark_load_map_data(Waymark_Instance, ' . $map->ID . ', true, ' . $reset_view . ');' . "\n";
+	}
+
+	$i++;
 }
 ?>
+
 	}
 </script>
 

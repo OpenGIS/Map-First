@@ -1,4 +1,18 @@
-<?php get_header();?>
+<?php
+/**
+ * Page Template
+ *
+ * This is the template used for Pages.
+ * 
+ * Map First 
+ * 
+ * Learn More
+ *
+ * https://developer.wordpress.org/themes/basics/template-hierarchy/
+ *
+ **/
+
+get_header();?>
 
 <?php
 //Content
