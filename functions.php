@@ -157,7 +157,7 @@ function map_first_breadcrumb() {
 
 		// ========= Taxonomy  =========
 		case is_archive():
-			$tax = get_queried_object();
+			$tax = get_queried_overlay();
 			if (isset($tax->name)) {
 				$crumbs[] = array(
 					'prepend' => ' Maps / ',
@@ -342,4 +342,55 @@ function map_first_single_pagination() {
 	echo '	</li>' . "\n";
 
 	echo '</ul>' . "\n";
+}
+
+function map_first_list_overlays(Array $overlays = []) {
+	$out = '';
+
+	// $overlays must have one of these keys: markers, lines, shapes
+	if (!array_key_exists('markers', $overlays) && !array_key_exists('lines', $overlays) && !array_key_exists('shapes', $overlays)) {
+
+		return $out;
+	}
+
+	//Waymark_Helper::debug($overlays);
+
+	foreach ($overlays as $overlay_type => $overlay) {
+		// $overlay must be an array
+		if (!is_array($overlay)) {
+			continue;
+		}
+
+		switch ($overlay_type) {
+		case 'markers':
+			$out .= '<p>Markers:</p>' . "\n";
+			$out .= '<ul>' . "\n";
+			foreach ($overlay as $marker_type => $markers) {
+				$out .= '<li>' . $marker_type . ' (' . sizeof($markers) . ')</li>' . "\n";
+			}
+			$out .= '</ul>' . "\n";
+
+			break;
+		case 'lines':
+			$out .= '<p>Lines:</p>' . "\n";
+			$out .= '<ul>' . "\n";
+			foreach ($overlay as $line_type => $lines) {
+				$out .= '<li>' . $line_type . ' (' . sizeof($lines) . ')</li>' . "\n";
+			}
+			$out .= '</ul>' . "\n";
+
+			break;
+		case 'shapes':
+			$out .= '<p>Shapes:</p>' . "\n";
+			$out .= '<ul>' . "\n";
+			foreach ($overlay as $shape_type => $shapes) {
+				$out .= '<li>' . $shape_type . ' (' . sizeof($shapes) . ')</li>' . "\n";
+			}
+			$out .= '</ul>' . "\n";
+
+			break;
+		}
+	}
+
+	return $out;
 }

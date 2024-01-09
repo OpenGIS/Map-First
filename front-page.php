@@ -1,6 +1,21 @@
 <?php
 
+$overlays = [];
+
 $Map = new Waymark_Map();
+
+foreach ($Map->get_posts() as $map) {
+	// Get Map data
+	$map_data = get_post_meta($map->ID, 'waymark_map_data', true);
+
+	// Convert to Array
+	$map_data = Waymark_GeoJSON::string_to_feature_collection($map_data);
+
+	// Merge recursively
+
+	$overlays = array_merge_recursive($overlays, Waymark_GeoJSON::features_by_overlay_type($map_data));
+}
+Waymark_Helper::debug($overlays, true);
 
 get_header();?>
 
@@ -39,17 +54,18 @@ get_header();?>
 <?php
 $i = 1;
 foreach ($Map->get_posts() as $map) {
+	// Get Map data
+	$map_data = get_post_meta($map->ID, 'waymark_map_data', true);
 
-	// Setting for Embed / Fetch via XJAX
+	// Setting for Embed / Fetch via XJAX (Waymark Settings > Maps > Collections)
 
 	// Embed
 	if ('embed' === Waymark_Config::get_setting('misc', 'collection_options', 'load_method')) {
-		$map_data = get_post_meta($map->ID, 'waymark_map_data', true);
 
 		//Modify map data
 		$map_data = Waymark_Helper::add_map_link_to_description($map->ID, $map->post_title, $map_data);
 
-		echo 'Waymark_Instance.load_json(' . $map_data . ');' . "\n";
+		$out .= 'Waymark_Instance.load_json(' . $map_data . ');' . "\n";
 		// AJAX
 	} else {
 		//Reset view (last map only)
@@ -59,7 +75,7 @@ foreach ($Map->get_posts() as $map) {
 			$reset_view = 'false';
 		}
 
-		echo 'waymark_load_map_data(Waymark_Instance, ' . $map->ID . ', true, ' . $reset_view . ');' . "\n";
+		$out .= 'waymark_load_map_data(Waymark_Instance, ' . $map->ID . ', true, ' . $reset_view . ');' . "\n";
 	}
 
 	$i++;
