@@ -353,7 +353,7 @@ function map_first_list_overlays(Array $overlays = []) {
 		return $out;
 	}
 
-	Waymark_Helper::debug($overlays);
+	// Waymark_Helper::debug($overlays);
 
 	foreach ($overlays as $overlay_type => $overlay) {
 		// $overlay must be an array
@@ -365,39 +365,97 @@ function map_first_list_overlays(Array $overlays = []) {
 
 		switch ($overlay_type) {
 		case 'markers':
+			// Get valid marker types
+			$marker_types = Waymark_Helper::get_overlay_types('marker', 'marker_title');
+
 			// Wrapper
-			$out .= '<div class="map-first-overlays map-first-markers">' . "\n";
+			$out .= '<div class="map-first-list map-first-markers">' . "\n";
+			$out .= '	<div class="map-first-title">' . __('Markers', 'waymark') . '</div>' . "\n";
+			$out .= '	<div class="map-first-overlays">' . "\n";
 
 			// Every marker type
-			$out .= '<ul>' . "\n";
 			foreach ($overlay as $marker_type => $markers) {
-				$out .= '<li>' . $marker_type . ' (' . sizeof($markers) . ')</li>' . "\n";
+				// Ensure is valid marker type
+				if (!array_key_exists($marker_type, $marker_types)) {
+					continue;
+				}
+
+				// Ensure we have markers
+				if (!sizeof($markers)) {
+					continue;
+				}
+
+				// Get type data
+				$type_data = $marker_types[$marker_type];
+
+				// Wrapper for Type
+				$out .= '		<div class="map-first-type map-first-type-' . $marker_type . '">' . "\n";
+
+				//Output Title and count
+				$out .= '		<div class="map-first-title">' . $type_data['marker_title'] . ' <span class="map-first-count">(' . sizeof($markers) . ')</span></div>' . "\n";
+
+				// Iterate over markers
+				foreach ($markers as $marker) {
+
+					Waymark_Helper::debug($marker, false);
+
+					// Get marker data
+					$marker_data = $marker['properties'];
+
+					// TODO!
+
+					//Output marker
+					$out .= '			<div class="map-first-overlay">' . "\n";
+					$out .= '				<div class="map-first-title">' . $marker_data['title'] . '</div>' . "\n";
+					$out .= '				<div class="map-first-description">' . $marker_data['description'] . '</div>' . "\n";
+					$out .= '			</div>' . "\n";
+
+				}
+
+				$out .= '		</div>' . "\n";
+
 			}
-			$out .= '</ul>' . "\n";
+
+			$out .= '	</div>' . "\n";
 			$out .= '</div>' . "\n";
 
 			break;
 		case 'lines':
+			// Get valid line types
+			$line_types = Waymark_Helper::get_overlay_types('line', 'line_title');
+
 			// Wrapper
 			$out .= '<div class="map-first-overlays map-first-lines">' . "\n";
 
 			// Every line type
 			foreach ($overlay as $line_type => $lines) {
+				// Ensure is valid line type
+				if (!array_key_exists($line_type, $line_types)) {
+					continue;
+				}
+
 				$out .= '<li>' . $line_type . ' (' . sizeof($lines) . ')</li>' . "\n";
 			}
 			$out .= '</div>' . "\n";
 
 			break;
 		case 'shapes':
+			// Get valid shape types
+			$shape_types = Waymark_Helper::get_overlay_types('shape', 'shape_title');
+
 			// Wrapper
 			$out .= '<div class="map-first-overlays map-first-shapes">' . "\n";
 
 			// Every shape type
-			$out .= '<ul>' . "\n";
 			foreach ($overlay as $shape_type => $shapes) {
+
+				// Ensure is valid shape type
+				if (!array_key_exists($shape_type, $shape_types)) {
+					continue;
+				}
+
 				$out .= '<li>' . $shape_type . ' (' . sizeof($shapes) . ')</li>' . "\n";
 			}
-			$out .= '</ul>' . "\n";
 			$out .= '</div>' . "\n";
 
 			break;
