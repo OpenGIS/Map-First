@@ -1,3 +1,16 @@
+/**
+ * Map First Styles
+ *
+ * Map First uses Bootstrap (v4.3.1) as a base. This file contains all of the
+ * custom styles for Map First.
+ *
+ * Learn More
+ *
+ * https://getbootstrap.com/docs/4.3/getting-started/introduction/
+ * https://www.waymark.dev/docs/styling-with-css-selectors/
+ *
+ **/
+
 /* Nav Bar */
 .navbar .container {
 	padding: 0;

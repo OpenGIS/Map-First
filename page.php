@@ -57,8 +57,10 @@ if (have_posts()) {
 	}
 //No Content
 } else {
-	get_template_part('template-parts/content/content', 'none');
-}
+	?>
+<article id="not-found" <?php post_class();?>>
+	<?php echo do_shortcode('[Waymark file_url="' . get_template_directory_uri() . '/assets/geo/404.geojson"]'); ?>
+</article>
 ?>
 
 
