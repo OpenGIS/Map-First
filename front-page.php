@@ -23,7 +23,6 @@ foreach ($Map->get_posts() as $map) {
 	$map_data = Waymark_GeoJSON::string_to_feature_collection($map_data);
 
 	// Merge recursively
-
 	$overlays = array_merge_recursive($overlays, Waymark_GeoJSON::features_by_overlay_type($map_data));
 }
 
@@ -71,7 +70,7 @@ foreach ($Map->get_posts() as $map) {
 		//Modify map data
 		$map_data = Waymark_Helper::add_map_link_to_description($map->ID, $map->post_title, $map_data);
 
-		$out .= 'Waymark_Instance.load_json(' . $map_data . ');' . "\n";
+		echo 'Waymark_Instance.load_json(' . $map_data . ');' . "\n";
 		// AJAX
 	} else {
 		//Reset view (last map only)
@@ -81,7 +80,7 @@ foreach ($Map->get_posts() as $map) {
 			$reset_view = 'false';
 		}
 
-		$out .= 'waymark_load_map_data(Waymark_Instance, ' . $map->ID . ', true, ' . $reset_view . ');' . "\n";
+		echo 'waymark_load_map_data(Waymark_Instance, ' . $map->ID . ', true, ' . $reset_view . ');' . "\n";
 	}
 
 	$i++;
