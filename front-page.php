@@ -1,9 +1,20 @@
 <?php
 
-$overlays = [];
+/**
+ * Home Template
+ *
+ * This template is used to display the home page of the site.
+ *
+ * Learn More
+ *
+ * https://developer.wordpress.org/themes/basics/template-hierarchy/
+ *
+ **/
 
+// Get all Maps
 $Map = new Waymark_Map();
 
+$overlays = [];
 foreach ($Map->get_posts() as $map) {
 	// Get Map data
 	$map_data = get_post_meta($map->ID, 'waymark_map_data', true);
@@ -15,7 +26,6 @@ foreach ($Map->get_posts() as $map) {
 
 	$overlays = array_merge_recursive($overlays, Waymark_GeoJSON::features_by_overlay_type($map_data));
 }
-Waymark_Helper::debug(map_first_list_overlays($overlays));
 
 get_header();?>
 
@@ -28,11 +38,7 @@ get_header();?>
 
 <!-- Individual Maps -->
 <div class="row">
-	<?php foreach ($Map->get_posts() as $map): ?>
-	<article class="col-4 py-4">
-		<?php Waymark_Helper::debug($map, false);?>
-	</article>
-	<?php endforeach;?>
+	<?php echo map_first_list_overlays($overlays); ?>
 </div>
 
 <?php get_sidebar();?>

@@ -391,28 +391,19 @@ function map_first_list_overlays(Array $overlays = []) {
 				// Wrapper for Type
 				$out .= '		<div class="map-first-type map-first-type-' . $marker_type . '">' . "\n";
 
-				//Output Title and count
-				$out .= '		<div class="map-first-title">' . $type_data['marker_title'] . ' <span class="map-first-count">(' . sizeof($markers) . ')</span></div>' . "\n";
+				//Output Title, Icon and count
+				$icon_data = Waymark_Helper::build_icon_data($type_data);
+				$icon_html = Waymark_Helper::build_icon_html($icon_data);
+
+				$out .= '		<div class="map-first-header" style="background-color:' . $type_data['marker_colour'] . ';color:' . $type_data['icon_colour'] . ';">' . "\n";
+				$out .= '			<div class="map-first-icon">' . $icon_html . '</div>' . "\n";
+				$out .= '			<div class="map-first-title">' . $type_data['marker_title'] . '</div>' . "\n";
+				$out .= '			<div class="map-first-count">' . sizeof($markers) . '</div>' . "\n";
+				$out .= '		</div>' . "\n";
 
 				// Iterate over markers
 				foreach ($markers as $marker) {
-
-					Waymark_Helper::debug($marker, false);
-
-					// Get marker data
-					$marker_data = $marker['properties'];
-
-					// TODO!
-					$icon_data = Waymark_Helper::build_icon_data($type_data);
-
-					Waymark_Helper::debug($icon_data, false);
-
-					//Output marker
-					$out .= '			<div class="map-first-overlay">' . "\n";
-					$out .= '				<div class="map-first-title">' . $marker_data['title'] . '</div>' . "\n";
-					$out .= '				<div class="map-first-description">' . $marker_data['description'] . '</div>' . "\n";
-					$out .= '			</div>' . "\n";
-
+					$out .= Waymark_Helper::build_overlay_content($marker);
 				}
 
 				$out .= '		</div>' . "\n";
