@@ -11,7 +11,7 @@
  *
  **/
 
-// Get all Maps
+// Get *all* the Maps!
 $Map = new Waymark_Map();
 
 $overlays = [];
@@ -33,11 +33,6 @@ get_header();?>
 	<article class="container-fluid">
 		<?php echo do_shortcode('[Waymark shortcode_header="0" loaded_callback="map_first_home" map_hash="home" ]'); ?>
 	</article>
-</div>
-
-<!-- Individual Maps -->
-<div class="row">
-	<?php echo map_first_list_overlays($overlays); ?>
 </div>
 
 <?php get_sidebar();?>

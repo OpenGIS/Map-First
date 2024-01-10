@@ -3,9 +3,9 @@
  * Page Template
  *
  * This is the template used for Pages.
- * 
- * Map First 
- * 
+ *
+ * Map First
+ *
  * Learn More
  *
  * https://developer.wordpress.org/themes/basics/template-hierarchy/
@@ -75,6 +75,8 @@ if (have_posts()) {
 <article id="not-found" <?php post_class();?>>
 	<?php echo do_shortcode('[Waymark file_url="' . get_template_directory_uri() . '/assets/geo/404.geojson"]'); ?>
 </article>
+<?php
+}
 ?>
 
 

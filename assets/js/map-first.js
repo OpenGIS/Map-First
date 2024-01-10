@@ -56,102 +56,485 @@ jQuery("document").ready(function () {
  * https://www.waymark.dev/docs/callback-function/
  * https://www.waymark.dev/docs/shortcodes/#callback-function
  **/
-const map_first_overlay_list = (Waymark) => {
-	// Ensure Waymark and jQuery are loaded
-	if (typeof Waymark !== "object" || typeof jQuery !== "function") {
-		console.error("Waymark or jQuery not loaded");
+const map_first_overlay_sidebar = (Waymark_Instance) => {
+	var waymark_container = Waymark_Instance.jq_map_container;
+
+	if (typeof waymark_container !== "object") {
+		return;
 	}
+	waymark_container.addClass("map-first-sidebar-active");
 
-	//Create container
-	let overlays_content = jQuery(`<div />`).addClass("waymark-overlays");
+	var waymark_shortcode_container =
+		waymark_container.parent(".waymark-shortcode");
+	waymark_shortcode_container.addClass("map-first-sidebar-active");
 
-	// Iterate over each Overlay type
-	["marker", "line", "shape"].forEach((type) => {
-		if (typeof Waymark[type + "_sub_groups"] === "object") {
-			// Get property keys
-			const type_keys = Object.keys(Waymark[type + "_sub_groups"]);
+	var sidebar = jQuery(".map-first-sidebar").first();
+	var container = jQuery(".waymark-shortcode.waymark-container").first();
 
-			// Ensure we have
-			if (!type_keys.length) {
-				console.error("Waymark." + type + "_sub_groups is empty");
+	if (!sidebar.length || !container.length) {
+		console.error("Map First: Sidebar or Container not found");
 
-				return false;
+		return;
+	}
+	//sidebar.remove();
+
+	/* 
+		 =========================== 
+		 ========== SETUP ==========
+		 ===========================	
+	*/
+
+	// 	var sidebar_wrap = sidebar.parents('.map-first-sidebar-wrapper');
+	sidebar.css("height", waymark_shortcode_container.height() + "px");
+
+	// 	jQuery('.map-first-overlay').each(function() {
+	// 		var overlay_width = jQuery(this).outerWidth();
+	//
+	// 		//Make Overlay Square
+	// 		jQuery(this).css('height', overlay_width);
+	//
+	// 		jQuery('.map-first-overlay-image', jQuery(this)).each(function() {
+	// 			jQuery(this).css({
+	// 				'width': overlay_width,
+	// 				'height': overlay_width,
+	// 				'maxWidth': overlay_width,
+	// 				'maxHeight': overlay_width
+	// 			});
+	// 		});
+	// 	});
+
+	/* 
+		 =========================== 
+		 ========= MARKERS =========
+		 ===========================	
+	*/
+
+	jQuery(".map-first-markers .map-first-overlay-type", sidebar).each(
+		function () {
+			var type_container = jQuery(this);
+			var type_key = type_container.data("type_key");
+
+			if (typeof type_key !== "string") {
+				return;
 			}
 
-			// Container for each type
-			let type_content = jQuery(`<div />`)
-				.addClass("waymark-type")
-				.append(jQuery(`<strong>${type.toUpperCase()}S</strong>`));
+			if (typeof Waymark_Instance.marker_sub_groups[type_key] !== "object") {
+				console.log(Waymark_Instance);
+				console.log(type_key);
+			}
 
-			//Iterate over property keys
-			type_keys.forEach((key) => {
-				const group = Waymark[type + "_sub_groups"][key];
+			//Show This Marker Type only
+			type_container.hover(
+				//On
+				function () {
+					var type_container = jQuery(this);
 
-				// Ensure we have a valid group
+					//Iterate
+					for (key in Waymark_Instance.marker_sub_groups) {
+						//Show this type
+						if (key == type_container.data("type_key")) {
+							var marker_group = Waymark_Instance.marker_sub_groups[key];
+
+							Waymark_Instance.map.addLayer(marker_group);
+							//Hide others
+						} else {
+							Waymark_Instance.map.removeLayer(
+								Waymark_Instance.marker_sub_groups[key],
+							);
+						}
+					}
+				},
+				//Off
+				function () {
+					//Show All
+					for (key in Waymark_Instance.marker_sub_groups) {
+						var marker_group = Waymark_Instance.marker_sub_groups[key];
+
+						Waymark_Instance.map.addLayer(marker_group);
+					}
+				},
+			);
+
+			//Each Type
+			for (i in Waymark_Instance.config.marker_types) {
 				if (
-					typeof group !== "object" ||
-					typeof group.getLayers !== "function"
+					type_key ===
+					Waymark_Instance.make_key(
+						Waymark_Instance.config.marker_types[i]["marker_title"],
+					)
 				) {
-					return false;
+					var type = Waymark_Instance.config.marker_types[i];
+					var icon_data = Waymark_Instance.build_icon_data(type);
+
+					// === Legend ===
+					var legend = jQuery("legend", type_container).first();
+
+					//Title
+					var type_count = legend.html().replace(type_key, "");
+					legend.html(
+						icon_data.html + "&nbsp;" + type.marker_title + type_count,
+					);
+					legend.css({
+						background: type.marker_colour,
+						color: type.icon_colour,
+					});
 				}
+			}
 
-				// Container for each group
-				let group_content = jQuery(`<div />`).addClass("waymark-group");
+			//Each Marker
+			var markers = jQuery(".map-first-overlay-marker", type_container);
+			markers.each(function () {
+				var marker = jQuery(this);
 
-				// Use Waymark helper functions to get icon data
-				const type_data = Waymark.get_type("marker", key);
-				const icon_data = Waymark.build_icon_data(type_data);
+				var marker_latlng = marker.data("marker_latlng");
 
-				// Build icon
-				group_content.append(
-					jQuery("<div />").html(icon_data.html).addClass(icon_data.className),
+				//Sync Sidebar Markers
+				Waymark_Instance.marker_sub_groups[type_key].eachLayer(
+					function (layer) {
+						//Valid location
+						if (typeof layer._latlng === "object") {
+							//Closer than a meter
+							if (layer._latlng.distanceTo(marker_latlng) < 1) {
+								var jquery_marker = jQuery(layer.getElement());
+
+								marker.data({
+									leaflet_layer: layer,
+									width_px: parseInt(
+										jquery_marker.css("width").replace("px", ""),
+									),
+									height_px: parseInt(
+										jquery_marker.css("height").replace("px", ""),
+									),
+								});
+							}
+						}
+					},
 				);
 
-				//Iterate over sub groups
-				group.getLayers().forEach((layer) => {
-					if (typeof layer.feature !== "object") {
-						return;
+				//Click
+				marker.on("click", function () {
+					var marker = jQuery(this);
+
+					var markers = jQuery(".map-first-overlay-marker", type_container);
+					markers.each(function () {
+						jQuery(this).removeClass("map-first-active");
+					});
+
+					if (typeof marker.data("leaflet_layer") === "object") {
+						var layer = marker.data("leaflet_layer");
+						Waymark_Instance.map.setView(layer.getLatLng(), 15);
+
+						marker.addClass("map-first-active");
 					}
-
-					// Build link
-					group_content.append(
-						jQuery("<a />")
-							.attr("href", "#")
-							.css("display", "block")
-							.text(layer.feature.properties.title || "Click to view")
-
-							// Add event listener
-							.on("click", (e) => {
-								e.preventDefault();
-
-								// Open popup
-								layer.openPopup();
-
-								// Focus on layer
-								switch (type) {
-									case "marker":
-										Waymark.map.setView(
-											layer.getLatLng(),
-											Waymark.map.getZoom(),
-										);
-										break;
-									case "line":
-									case "shape":
-										Waymark.map.fitBounds(layer.getBounds());
-										break;
-								}
-							}),
-					);
-
-					type_content.append(group_content);
 				});
 
-				overlays_content.append(type_content);
-			}); // End iterate
-		} else {
-			console.error("Waymark." + type + "_sub_groups not found");
+				marker.hover(
+					//On
+					function () {
+						var marker = jQuery(this);
+
+						if (typeof marker.data("leaflet_layer") === "object") {
+							var layer = marker.data("leaflet_layer");
+							var jquery_marker = jQuery(layer.getElement());
+
+							if (!jquery_marker.hasClass("map-first-active")) {
+								jquery_marker.addClass("map-first-active");
+
+								jquery_marker.css({
+									width: marker.data("width_px") * 1.25 + "px",
+									height: marker.data("height_px") * 1.25 + "px",
+								});
+							}
+						}
+					},
+
+					//Off
+					function () {
+						var marker = jQuery(this);
+
+						if (typeof marker.data("leaflet_layer") === "object") {
+							var layer = marker.data("leaflet_layer");
+							var jquery_marker = jQuery(layer.getElement());
+
+							if (jquery_marker.hasClass("map-first-active")) {
+								jquery_marker.removeClass("map-first-active");
+
+								jquery_marker.css({
+									width: marker.data("width_px") + "px",
+									height: marker.data("height_px") + "px",
+								});
+							}
+						}
+					},
+				);
+			});
+		},
+	);
+
+	//Iterate all Leaflet *** Markers ***
+	for (key in Waymark_Instance.marker_sub_groups) {
+		Waymark_Instance.marker_sub_groups[key].eachLayer(function (layer) {
+			//On Click
+			layer.on("click", function (e) {
+				//Iterate Sidebar
+				jQuery(".map-first-sidebar .map-first-overlay-marker").each(
+					function () {
+						var marker = jQuery(this);
+						var type_key = marker
+							.parents(".map-first-overlay-type")
+							.data("type_key");
+
+						//Match
+						if (
+							typeof marker.data("leaflet_layer") === "object" &&
+							marker.data("leaflet_layer") === e.target
+						) {
+							//Exclude these
+							if (type_key == "toilet" || type_key == "drinkingwater") {
+								return false;
+							}
+
+							//Hide others
+							jQuery(
+								".map-first-sidebar .map-first-overlay-type .waymark-accordion-group-content",
+							).each(function () {
+								jQuery(this).hide();
+							});
+
+							marker.addClass("map-first-active");
+
+							//Show this
+							marker.parents(".waymark-accordion-group-content").show();
+
+							//Scroll To Marker
+							marker.get(0).scrollIntoView({
+								behavior: "smooth",
+								block: "nearest",
+								inline: "nearest",
+							});
+						} else {
+							marker.removeClass("map-first-active");
+						}
+					},
+				);
+			});
+		});
+	}
+
+	/* 
+		 =========================== 
+		 ========== LINES ==========
+		 ===========================	
+	*/
+
+	//Each Line Type
+	jQuery(".map-first-lines .map-first-overlay-type", sidebar).each(function () {
+		var type_container = jQuery(this);
+		var type_key = type_container.data("type_key");
+
+		if (typeof type_key !== "string") {
+			return;
 		}
+
+		if (typeof Waymark_Instance.line_sub_groups[type_key] !== "object") {
+			console.log(Waymark_Instance);
+			console.log(type_key);
+		}
+
+		//Show This Line Type only
+		type_container.hover(
+			//On
+			function () {
+				var type_container = jQuery(this);
+
+				//Iterate
+				for (key in Waymark_Instance.line_sub_groups) {
+					//Show this type
+					if (key == type_container.data("type_key")) {
+						var line_group = Waymark_Instance.line_sub_groups[key];
+
+						Waymark_Instance.map.addLayer(line_group);
+						//Hide others
+					} else {
+						Waymark_Instance.map.removeLayer(
+							Waymark_Instance.line_sub_groups[key],
+						);
+					}
+				}
+			},
+			//Off
+			function () {
+				//Show All
+				for (key in Waymark_Instance.line_sub_groups) {
+					var line_group = Waymark_Instance.line_sub_groups[key];
+
+					Waymark_Instance.map.addLayer(line_group);
+				}
+			},
+		);
+
+		//Each Type
+		for (i in Waymark_Instance.config.line_types) {
+			if (
+				type_key ===
+				Waymark_Instance.make_key(
+					Waymark_Instance.config.line_types[i]["line_title"],
+				)
+			) {
+				var type = Waymark_Instance.config.line_types[i];
+
+				// === Legend ===
+				var legend = jQuery("legend", type_container).first();
+
+				//Title
+				var type_count = legend.html().replace(type_key, "");
+				legend.html(
+					'<i class="fa fa-blind"></i>&nbsp;' + type.line_title + type_count,
+				);
+				legend.css({
+					background: type.line_colour,
+				});
+			}
+		}
+
+		//Each Line
+		var lines = jQuery(".map-first-overlay-line", type_container);
+		lines.each(function () {
+			var line = jQuery(this);
+
+			var line_start_latlng = line.data("line_start_latlng");
+
+			//Sync Sidebar Lines
+			Waymark_Instance.line_sub_groups[type_key].eachLayer(function (layer) {
+				//Valid location
+				if (typeof layer._latlngs === "object") {
+					//
+
+					//Closer than a meter
+					if (layer._latlngs[0].distanceTo(line_start_latlng) < 1) {
+						// 						var jquery_line = jQuery(layer.getElement());
+
+						line.data({
+							leaflet_layer: layer,
+						});
+					}
+				}
+			});
+
+			//Click
+			line.on("click", function (e) {
+				// 				e.preventDefault();
+
+				var line = jQuery(this);
+
+				var lines = jQuery(".map-first-overlay-line", type_container);
+				lines.each(function () {
+					jQuery(this).removeClass("map-first-active");
+				});
+
+				if (typeof line.data("leaflet_layer") === "object") {
+					var layer = line.data("leaflet_layer");
+					Waymark_Instance.map.fitBounds(layer.getBounds());
+
+					line.addClass("map-first-active");
+				}
+
+				// 				return false;
+			});
+
+			line.hover(
+				//On
+				function () {
+					var line = jQuery(this);
+
+					if (typeof line.data("leaflet_layer") === "object") {
+						var layer = line.data("leaflet_layer");
+
+						//Elevation
+						if (typeof Waymark_Instance.elevation_control === "object") {
+							//Clear Map layer
+							Waymark_Instance.elevation_control.clear();
+							if (
+								typeof Waymark_Instance.elevation_control.layer !== "undefined"
+							) {
+								Waymark_Instance.elevation_control.layer.removeFrom(
+									Waymark_Instance.map,
+								);
+							}
+
+							//Add this Line
+							Waymark.elevation_control.loadData(layer.feature);
+						}
+					}
+				},
+
+				//Off
+				function () {
+					var line = jQuery(this);
+
+					if (typeof line.data("leaflet_layer") === "object") {
+						// 						var layer = marker.data('leaflet_layer');
+						// 						var jquery_marker = jQuery(layer.getElement());
+						//
+						// 						if(jquery_marker.hasClass('map-first-active')) {
+						// 							jquery_marker.removeClass('map-first-active');
+						//
+						// 							jquery_marker.css({
+						// 								'width' : marker.data('width_px') + 'px',
+						// 								'height' : marker.data('height_px')  + 'px'
+						// 							});
+						// 						}
+					}
+				},
+			);
+		});
 	});
 
-	Waymark.jq_map_container.parent().append(overlays_content);
+	//Iterate all Leaflet *** Lines ***
+	for (key in Waymark_Instance.line_sub_groups) {
+		Waymark_Instance.line_sub_groups[key].eachLayer(function (layer) {
+			//On Click
+			layer.on("click", function (e) {
+				//Iterate Sidebar
+				jQuery(".map-first-sidebar .map-first-overlay-line").each(function () {
+					var line = jQuery(this);
+
+					//Match
+					if (
+						typeof line.data("leaflet_layer") === "object" &&
+						line.data("leaflet_layer") === e.target
+					) {
+						//Hide others
+						jQuery(".map-first-sidebar .map-first-overlay-type").each(
+							function () {
+								jQuery(this).removeClass("waymark-active");
+
+								jQuery(".waymark-accordion-group-content", jQuery(this)).hide();
+							},
+						);
+
+						line.addClass("map-first-active");
+
+						//Show this
+						line.parents(".map-first-overlay-type").each(function () {
+							jQuery(this).addClass("waymark-active");
+
+							jQuery(".waymark-accordion-group-content", jQuery(this)).show();
+						});
+
+						//Scroll To Marker
+						line.get(0).scrollIntoView({
+							behavior: "smooth",
+							block: "nearest",
+							inline: "nearest",
+						});
+					} else {
+						line.removeClass("map-first-active");
+					}
+				});
+			});
+		});
+	}
+
+	//container.append(sidebar);
 };
