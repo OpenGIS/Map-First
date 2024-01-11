@@ -23,7 +23,10 @@ foreach ($Map->get_posts() as $map) {
 	$map_data = Waymark_GeoJSON::string_to_feature_collection($map_data);
 
 	// Merge recursively
-	$overlays = array_merge_recursive($overlays, Waymark_GeoJSON::features_by_overlay_type($map_data));
+	if (is_array($overlays) && sizeof($overlays)) {
+		$overlays = array_merge_recursive($overlays, Waymark_GeoJSON::features_by_overlay_type($map_data));
+	}
+
 }
 
 get_header();?>
