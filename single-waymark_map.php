@@ -117,14 +117,10 @@ const map_first_single = (Waymark) => {
           return false;
         }
 
-        let group_content = jQuery(`<div />`).addClass("waymark-group");
-
-        const type_data = Waymark.get_type("marker", key);
-        const icon_data = Waymark.build_icon_data(type_data);
-
-        group_content.append(
-          jQuery("<div />").html(icon_data.html).addClass(icon_data.className),
-        );
+        let group_content = jQuery(`<div />`)
+        	.addClass("waymark-group")
+        	.append(Waymark.build_type_heading(type, key))
+        ;
 
         //Iterate over sub groups
         group.getLayers().forEach((layer) => {
