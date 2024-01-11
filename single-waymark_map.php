@@ -27,7 +27,12 @@ get_header();?>
 // Output Map using Waymark Shortcode
 // Here we also pass the name of the JavaScript function to call when
 // Waymark has finished loading, defined below
-echo do_shortcode('[Waymark shortcode_header="0" show_elevation="1" loaded_callback="map_first_single" map_id="' . get_the_ID() . '" ]');
+echo do_shortcode('[Waymark
+  shortcode_header="0"
+  show_elevation="1"
+  loaded_callback="map_first_single"
+  map_id="' . get_the_ID() . '"
+]');
 
 $map_meta = Waymark_Helper::get_map_meta($Map);
 
@@ -129,12 +134,18 @@ const map_first_single = (Waymark) => {
             return;
           }
 
+          let type_data = Waymark.get_type(type, layer.feature.properties.type);
+          let overlay_content = Waymark.build_overlay_content(layer.feature, type, type_data);
+
+          console.log(overlay_content);
+
+
+
           group_content.append(
             jQuery("<a />")
               .attr("href", "#")
               .css("display", "block")
-              .text(layer.feature.properties.title || "Click to view")
-
+              .html(overlay_content)
               .on("click", (e) => {
                 e.preventDefault();
 
