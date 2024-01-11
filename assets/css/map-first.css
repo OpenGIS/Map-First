@@ -86,48 +86,42 @@ main article {
 /* Map Single */
 body.single-waymark_map .map-first-single {
 	display: flex;
-	border: 1px solid red;
 }
 body.single-waymark_map .map-first-map {
 	flex: 2;
 }
 body.single-waymark_map .map-first-sidebar {
-	border: 1px solid green;
+	padding: 0 10px;
+	min-width: 280px;
 }
 body.single-waymark_map .map-first-sidebar .waymark-overlays {
-/*  display: flex;*/
-}
-body.single-waymark_map .map-first-sidebar .waymark-type {
-  margin: 15px;
+	padding-top: 0;
 }
 body.single-waymark_map .map-first-sidebar .waymark-group {
-  position: relative;
-  padding: 15px 15px 15px 50px;
-  border: 1px solid green;
+	position: relative;
+	padding: 0 !important;
 }
-body.single-waymark_map .map-first-sidebar .waymark-type-heading .waymark-type-icon {
-	border: 1px solid blue;
-}
-body.single-waymark_map .map-first-sidebar .waymark-type-heading .waymark-type-title {
-	border: 1px solid red;
-}
-body.single-waymark_map .map-first-sidebar .waymark-type-preview {
-	position: absolute;
-	top: 15px;
-	left: 15px;
-	width: 40px;
+body.single-waymark_map .waymark-type-heading {
+	display: flex;
 	height: 40px;
-	border: 1px solid red;
+	line-height: 40px;
 }
-body.single-waymark_map .map-first-sidebar .waymark-marker {
-  width: 32px; 
-  height: 32px;
+body.single-waymark_map .waymark-type-heading .waymark-type-title {
+}
+body.single-waymark_map .waymark-type-heading .waymark-type-preview {
+	margin: 0 10px;
+}
+body.single-waymark_map .waymark-type-heading .waymark-type-preview i {
+	display: inline-block !important;
+	margin-top: -4px;
+}
+body.single-waymark_map .waymark-type-preview .waymark-line-type {
+	visibility: hidden;
 }
 
 body.single-waymark_map .map-first-sidebar .waymark-group a {
-  line-height: 1.5em;
+	line-height: 1.5em;
 }
-
 
 /* Mobile */
 @media (max-width: 1024px) {

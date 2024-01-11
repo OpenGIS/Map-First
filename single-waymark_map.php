@@ -91,7 +91,8 @@ const map_first_single = (Waymark) => {
 	const container = jQuery(".map-first-sidebar").empty();
 
 
-  let overlays_content = jQuery(`<div />`).addClass("waymark-overlays");
+  let overlays_content = jQuery(`<div />`).addClass("waymark-overlays waymark-accordion-container");
+
 
   ["marker", "line", "shape"].forEach((type) => {
     if (typeof Waymark[type + "_sub_groups"] === "object") {
@@ -103,8 +104,8 @@ const map_first_single = (Waymark) => {
       }
 
       let type_content = jQuery(`<div />`)
-        .addClass("waymark-type")
-        .append(jQuery(`<strong>${type.toUpperCase()}S</strong>`));
+        .addClass("waymark-type waymark-accordion-group")
+        .append(jQuery(`<legend>${type.toUpperCase()}S</legend>`));
 
       //Iterate over property keys
       type_keys.forEach((key) => {
@@ -118,7 +119,7 @@ const map_first_single = (Waymark) => {
         }
 
         let group_content = jQuery(`<div />`)
-        	.addClass("waymark-group")
+          .addClass("waymark-group waymark-accordion-group-content")
         	.append(Waymark.build_type_heading(type, key))
         ;
 
@@ -164,6 +165,8 @@ const map_first_single = (Waymark) => {
   });
 
   container.append(overlays_content);
+
+  // waymark_setup_accordions();
 };
 </script>
 
