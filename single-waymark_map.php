@@ -229,31 +229,31 @@ const map_first_single = (Waymark_Instance) => {
 				},
 			);
 
-			//Each Type
-			for (i in Waymark_Instance.config.marker_types) {
-				if (
-					type_key ===
-					Waymark_Instance.make_key(
-						Waymark_Instance.config.marker_types[i]["marker_title"],
-					)
-				) {
-					var type = Waymark_Instance.config.marker_types[i];
-					var icon_data = Waymark_Instance.build_icon_data(type);
+			// //Each Type
+			// for (i in Waymark_Instance.config.marker_types) {
+			// 	if (
+			// 		type_key ===
+			// 		Waymark_Instance.make_key(
+			// 			Waymark_Instance.config.marker_types[i]["marker_title"],
+			// 		)
+			// 	) {
+			// 		var type = Waymark_Instance.config.marker_types[i];
+			// 		var icon_data = Waymark_Instance.build_icon_data(type);
 
-					// === Legend ===
-					var legend = jQuery("legend", type_container).first();
+			// 		// === Legend ===
+			// 		var legend = jQuery("legend", type_container).first();
 
-					//Title
-					var type_count = legend.html().replace(type_key, "");
-					legend.html(
-						icon_data.html + "&nbsp;" + type.marker_title + type_count,
-					);
-					legend.css({
-						background: type.marker_colour,
-						color: type.icon_colour,
-					});
-				}
-			}
+			// 		//Title
+			// 		var type_count = legend.html().replace(type_key, "");
+			// 		legend.html(
+			// 			icon_data.html + "&nbsp;" + type.marker_title + type_count,
+			// 		);
+			// 		legend.css({
+			// 			background: type.marker_colour,
+			// 			color: type.icon_colour,
+			// 		});
+			// 	}
+			// }
 
 			//Each Marker
 			var markers = jQuery(".map-first-overlay-marker", type_container);
