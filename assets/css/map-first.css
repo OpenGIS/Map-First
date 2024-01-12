@@ -90,14 +90,18 @@ body.single-waymark_map .map-first-single {
 body.single-waymark_map .map-first-map {
 	flex: 2;
 }
-body.single-waymark_map .map-first-sidebar {
+.map-first-sidebar {
 	padding: 0 10px;
 	width: 280px;
 }
-body.single-waymark_map .map-first-sidebar .waymark-overlays {
+.map-first-sidebar legend {
+	padding: 10px !important;
+	font-size: 16px !important;
+}
+.map-first-sidebar .waymark-overlays {
 	padding-top: 0;
 }
-body.single-waymark_map .map-first-sidebar .waymark-group {
+.map-first-sidebar .waymark-group {
 	position: relative;
 	padding: 0 !important;
 }
@@ -119,8 +123,48 @@ body.single-waymark_map .waymark-type-preview .waymark-line-type {
 	visibility: hidden;
 }
 
-body.single-waymark_map .map-first-sidebar .waymark-group a {
+.map-first-sidebar .waymark-group a {
 	line-height: 1.5em;
+}
+
+/*
+
+<div class="waymark-overlay-content waymark-overlay-line">
+<div class="waymark-overlay-property waymark-overlay-property-type"></div><div class="waymark-overlay-property waymark-overlay-property-title">North Coast Trail</div><div class="waymark-overlay-property waymark-overlay-property-description"><p>&nbsp;</p></div><div class="waymark-overlay-property waymark-overlay-property-image_large_url"></div></div>
+
+*/
+
+.map-first-sidebar .waymark-overlay-content {
+	display: flex;
+	height: 40px;
+	line-height: 40px;
+	overflow: hidden;
+	border-bottom: 1px solid #333;
+	border-top: 1px solid #333;
+	cursor: pointer;
+}
+.map-first-sidebar .waymark-overlay-content.waymark-overlay-has-image::after {
+	margin-top: 5px;
+	content: " 🖼";
+}
+.map-first-sidebar .waymark-overlay-content.waymark-overlay-has-desc::after {
+	margin-top: 5px;
+	content: " 📝";
+}
+.map-first-sidebar
+	.waymark-overlay-content.waymark-overlay-has-desc.waymark-overlay-has-image::after {
+	margin-top: 5px;
+	content: " 📝 🖼";
+}
+.map-first-sidebar .waymark-overlay-property-title {
+	padding: 5px;
+	width: 220px;
+}
+
+.map-first-sidebar .waymark-overlay-property-type,
+.map-first-sidebar .waymark-overlay-property-image_large_url,
+.map-first-sidebar .waymark-overlay-property-description {
+	display: none;
 }
 
 /* Mobile */

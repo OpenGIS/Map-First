@@ -142,10 +142,11 @@ const map_first_single = (Waymark) => {
 
 
           group_content.append(
-            jQuery("<a />")
+            jQuery("<div />")
               .attr("href", "#")
               .css("display", "block")
               .html(overlay_content)
+              .addClass("waymark-overlay-content")
               .on("click", (e) => {
                 e.preventDefault();
 
