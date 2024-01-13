@@ -10,16 +10,26 @@
  *
  **/
 
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
+// import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/less/main.less";
 
 // Once the DOM is fully loaded.
 jQuery("document").ready(function () {
+  // Set up the breadcrumb navigation
   var nav = jQuery("select#breadcrumb-nav");
 
   nav.change(function () {
     document.location.href = jQuery(this).val();
+  });
+
+  //Set up the header content
+  var header = jQuery("#navbarHeader");
+  var button = jQuery("button.navbar-toggler");
+
+  // When the button is clicked, toggle the "show" class on the header
+  button.click(function () {
+    header.toggleClass("show");
   });
 
   // You could use the body class to target specific pages.
