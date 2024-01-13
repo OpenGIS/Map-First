@@ -3,17 +3,8 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  optimizeDeps: {
-    include: ["jquery"],
-  },
   build: {
-    commonjsOptions: {
-      include: [/jquery/, /node_modules/],
-    },
     copyPublicDir: false,
-    modulePreload: {
-      polyfill: false,
-    },
     manifest: true,
     rollupOptions: {
       input: "src/js/main.js",
