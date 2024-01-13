@@ -20,7 +20,7 @@ header {
 	z-index: 1000;
 
 	.navbar {
-		.container {
+		.container-fluid {
 			padding: 0;
 			z-index: 2000;
 
@@ -81,7 +81,9 @@ body.archive.tax-waymark_collection {
 }
 
 /* Main Content */
-main {
+main.container-fluid {
+	padding: 0;
+
 	article {
 		font-size: 17px;
 	}
@@ -90,13 +92,37 @@ main {
 /* Leaflet  */
 .leaflet-container {
 	background: none !important;
+
+	.leaflet-control-container {
+		// .leaflet-left {
+		// 	margin-left: 5px;
+		// }
+
+		// .leaflet-right {
+		// 	margin-right: 5px;
+		// }
+
+		.leaflet-control-zoom {
+			display: none;
+		}
+
+		.leaflet-control-locate,
+		.leaflet-control-fullscreen {
+			padding: 4px;
+			background: #fff;
+			color: #333;
+			border-color: #9c9c9c;
+		}
+	}
 }
 
 /* Shortcodes */
 .waymark-shortcode {
+	margin-bottom: 0 !important;
 	border: none !important;
 
 	.waymark-header {
+		// padding: 10px 15px !important;
 		font-size: 13px;
 
 		.waymark-title {
@@ -107,17 +133,16 @@ main {
 
 /* Map Single */
 body.single-waymark_map {
-	.map-first-single {
-		display: flex;
-
-		.map-first-map {
-			flex: 2;
+	// Sidebar
+	article.type-waymark_map .row {
+		// Remove margin from first and last child
+		> *:last-child,
+		> *:first-child {
+			padding: 0;
 		}
-	}
 
-	.map-first-sidebar {
-		padding: 0 10px;
-		width: 280px;
+		// padding: 0 10px;
+		// width: 280px;
 		overflow: auto;
 
 		legend {
@@ -216,19 +241,44 @@ body.single-waymark_map {
 			}
 		}
 	}
+
+	// Image
+	.waymark-map-thumbnail {
+		float: right;
+		margin: 0 0 10px 10px;
+	}
 }
 
 /* Mobile */
-@media (max-width: 1024px) {
+@media (max-width: 480px) {
+	.waymark-map {
+		max-height: 400px;
+
+		// Hide on mobile
+		.waymark-gallery-container {
+			display: none !important;
+		}
+	}
+
 	.navbar {
-		.container {
+		min-height: 65px;
+		// line-height: 65px;
+
+		.container-fluid {
 			position: relative;
 			padding-right: 65px;
+
+			.navbar-brand {
+				.site-name {
+					display: none;
+				}
+			}
 
 			.navbar-toggler {
 				position: absolute;
 				top: 0;
 				right: 0;
+				padding: 3px 8px;
 			}
 		}
 	}

@@ -79,6 +79,5 @@ if (have_posts()) {
 }
 ?>
 
-
 <?php get_sidebar();?>
 <?php get_footer();?>

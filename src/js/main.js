@@ -60,10 +60,10 @@ window.map_first_single = function (Waymark) {
     return false;
   }
 
-  const container = jQuery(".map-first-sidebar").empty();
+  const container = jQuery(".map-first-sidebar-content").empty();
 
   // Adjust the container height
-  container.css("height", Waymark.jq_map_container.height());
+  // container.css("height", Waymark.jq_map_container.height());
 
   let overlays_content = jQuery(`<div />`).addClass(
     "waymark-overlays waymark-accordion-container",
@@ -124,8 +124,19 @@ window.map_first_single = function (Waymark) {
               .on("click", (e) => {
                 e.preventDefault();
 
-                // Open popup
-                layer.openPopup();
+                // Close all popups
+                Waymark.map.closePopup();
+
+                // Trigger click on .waymark-elevation-close button to close elevation popup
+                jQuery(".waymark-elevation-close").trigger("click");
+
+                //Smooth scroll to main content <main role="main">
+                jQuery("html, body").animate(
+                  {
+                    scrollTop: jQuery("main").offset().top,
+                  },
+                  500,
+                );
 
                 switch (type) {
                   case "marker":
@@ -139,6 +150,9 @@ window.map_first_single = function (Waymark) {
                     Waymark.map.fitBounds(layer.getBounds());
                     break;
                 }
+
+                // Open popup
+                layer.openPopup();
               }),
           );
 

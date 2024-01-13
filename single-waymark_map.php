@@ -19,10 +19,11 @@ $Map = new Waymark_Map(get_the_ID());
 
 get_header();?>
 
-<article id="post-<?php the_ID();?>" <?php post_class();?>>
+<article id="post-<?php the_ID();?>" <?php post_class('container-fluid');?>>
 
-	<div class="map-first-single">
-		<div class="map-first-map">
+	<div class="map-first-single row">
+		<!-- Map: Full width on mobile, 75% otherwise -->
+		<div class="map-first-map col-sm-12 col-md-9">
 <?php
 // Output Map using Waymark Shortcode
 // Here we also pass the name of the JavaScript function to call when
@@ -35,17 +36,24 @@ echo do_shortcode('[Waymark
 ]');
 
 $map_meta = Waymark_Helper::get_map_meta($Map);
-
-//Do we have something to display?
-if (sizeof($map_meta)) {
-	echo Waymark_Helper::map_meta_html($map_meta, false);
-}
-//END Meta
-
 ?>
-		</div>
+</div>
+		<!-- Sidebar: Full width on mobile, 25% otherwise -->
+		<div class="map-first-sidebar col-sm-12 col-md-3">
+			<!-- WordPress custom post type Thumbnail -->
+			<?php if (has_post_thumbnail()): ?>
 
-		<div class="map-first-sidebar"><?php
+				<!-- Hide on mobile -->
+			<div class="map-first-image d-none d-md-block">
+
+				<?php the_post_thumbnail('large', array(
+	'class' => 'img-fluid',
+));?>
+			</div>
+			<?php endif;?>
+
+			<div class="map-first-sidebar-content">
+			<?php
 // Get Map data
 $map_data = $Map->data['map_data'];
 
@@ -64,5 +72,5 @@ echo Waymark_Helper::overlays_list_html($overlays);
 
 <?php map_first_single_pagination();?>
 
-<!-- <?php get_sidebar();?> -->
+<?php get_sidebar();?>
 <?php get_footer();?>
