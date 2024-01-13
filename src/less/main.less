@@ -138,17 +138,31 @@ body.single-waymark_map {
 			}
 
 			.waymark-overlay-content {
+				padding: 0;
 				display: flex;
-				height: 40px;
-				line-height: 40px;
+				height: 36px;
+				line-height: 30px;
 				overflow: hidden;
-				border-bottom: 1px solid #333;
-				border-top: 1px solid #333;
 				cursor: pointer;
+				border-bottom: 1px solid #ccc;
 
-				&.waymark-overlay-has-image::after {
-					margin-top: 5px;
-					content: " 🖼";
+				&:last-child {
+					border-bottom: none;
+				}
+
+				&.waymark-overlay-has-image {
+					&::after {
+						margin-top: 5px;
+
+						content: " 🖼";
+					}
+
+					// Alignment tweak
+					&:not(.waymark-overlay-has-desc) {
+						&::after {
+							margin-left: 22px;
+						}
+					}
 				}
 
 				&.waymark-overlay-has-desc::after {
@@ -164,6 +178,12 @@ body.single-waymark_map {
 				.waymark-overlay-property-title {
 					padding: 5px;
 					width: 220px;
+					font-size: 14px;
+
+					// Untitled
+					em {
+						color: #ccc;
+					}
 				}
 
 				.waymark-overlay-property-type,
