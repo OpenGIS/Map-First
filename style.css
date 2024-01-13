@@ -1,10 +1,17 @@
 /*
 Theme Name: Map First
 Theme URI: https://www.waymark.dev/
-Description: Map First is a WordPress theme that puts Mapping first.
+Description: A minimal WordPress theme with an obsession for Maps.
 Author: Joe Hawes
 Author URI: https://www.morehawes.ca/
-Version: 2024.1
+Version: 1.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+/* 
+Don't edit this file!!! It's not loaded by the theme ;0) 
+
+Either add styles in the Customizer (Appearance > Customize > 
+Additional CSS) or in a child theme.
 */

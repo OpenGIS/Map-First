@@ -10,25 +10,28 @@
  *
  **/
 
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "@/less/main.less";
+
 // Once the DOM is fully loaded.
 jQuery("document").ready(function () {
-	var nav = jQuery("select#breadcrumb-nav");
+  var nav = jQuery("select#breadcrumb-nav");
 
-	nav.change(function () {
-		document.location.href = jQuery(this).val();
-	});
+  nav.change(function () {
+    document.location.href = jQuery(this).val();
+  });
 
-	// You could use the body class to target specific pages.
-	var body = jQuery("body").first();
-	switch (true) {
-		//Single Map Page
-		case body.hasClass("single-waymark_map"):
-			break;
+  // You could use the body class to target specific pages.
+  var body = jQuery("body").first();
+  switch (true) {
+    //Single Map Page
+    case body.hasClass("single-waymark_map"):
+      break;
 
-		//Collection Page
-		case body.hasClass("tax-waymark_collection"):
-			break;
-	}
+    //Collection Page
+    case body.hasClass("tax-waymark_collection"):
+      break;
+  }
 });
 
 /**
@@ -37,12 +40,12 @@ jQuery("document").ready(function () {
  * This function is called when a Waymark Shortcode has finished
  * loading and has been provided this function name as a callback
  * using the "loaded_callback" shortcode attribute.
- * 
+ *
  * It iterates over each Leaflet layer and creates an interactive
  * list of overlays. Clicking on an overlay will open its popup
  * and zoom to its location.
  *
- * It is passed a single argument - the Waymark_Instance object.
+ * It is passed a single argument - the Waymark Instance object.
  *
  * Adapted From
  *
@@ -53,14 +56,16 @@ jQuery("document").ready(function () {
  * https://www.waymark.dev/docs/callback-function/
  * https://www.waymark.dev/docs/shortcodes/#callback-function
  **/
-const map_first_single = (Waymark) => {
+function map_first_single(Waymark) {
   // Check for the Map First Sidebar
   if (!jQuery(".map-first-sidebar").length) {
-		return false;
-	}
+    return false;
+  }
 
-	const container = jQuery(".map-first-sidebar").empty();
-  let overlays_content = jQuery(`<div />`).addClass("waymark-overlays waymark-accordion-container");
+  const container = jQuery(".map-first-sidebar").empty();
+  let overlays_content = jQuery(`<div />`).addClass(
+    "waymark-overlays waymark-accordion-container",
+  );
 
   // Each Overlay Type
   ["marker", "line", "shape"].forEach((type) => {
@@ -81,7 +86,10 @@ const map_first_single = (Waymark) => {
         const group = Waymark[type + "_sub_groups"][key];
 
         // Must be a LayerGroup
-        if (typeof group !== "object" || typeof group.getLayers !== "function") {
+        if (
+          typeof group !== "object" ||
+          typeof group.getLayers !== "function"
+        ) {
           return false;
         }
 
@@ -89,9 +97,7 @@ const map_first_single = (Waymark) => {
         // Uses the very hand build_type_heading() helper function
         let group_content = jQuery(`<div />`)
           .addClass("waymark-group waymark-accordion-group-content")
-        	.append(Waymark.build_type_heading(type, key))
-        ;
-
+          .append(Waymark.build_type_heading(type, key));
         //Iterate over sub groups
         group.getLayers().forEach((layer) => {
           if (typeof layer.feature !== "object") {
@@ -101,7 +107,11 @@ const map_first_single = (Waymark) => {
           // Create overlay content
           let type_data = Waymark.get_type(type, layer.feature.properties.type);
           // Uses the very hand build_overlay_content() helper function
-          let overlay_content = Waymark.build_overlay_content(layer.feature, type, type_data);
+          let overlay_content = Waymark.build_overlay_content(
+            layer.feature,
+            type,
+            type_data,
+          );
 
           group_content.append(
             jQuery("<div />")
@@ -137,8 +147,6 @@ const map_first_single = (Waymark) => {
       }); // End iterate
     }
   });
-
-  
 
   container.append(overlays_content);
 }

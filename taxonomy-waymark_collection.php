@@ -35,12 +35,12 @@ get_header();?>
 <div class="row mb-4">
 	<!-- This is the WordPress Loop (See https://developer.wordpress.org/themes/basics/the-loop/) -->
 	<?php if (have_posts()): while (have_posts()): the_post();?>
-				<!-- Bootstrap utility classes for layout -->
-				<article <?php post_class('col-sm-6 col-md-4 py-4');?>>
-					<!-- Tweak the Shortcode to display a smaller Map with some custom options -->
-					<?php echo do_shortcode('[Waymark map_id="' . $post->ID . '" map_height="300" shortcode_header="1" show_gallery="0"]'); ?>
-				</article>
-				<?php endwhile;endif;?>
+		<!-- Bootstrap utility classes for layout -->
+		<article <?php post_class('col-sm-6 col-md-4 py-4');?>>
+			<!-- Tweak the Shortcode to display a smaller Map with some custom options -->
+			<?php echo do_shortcode('[Waymark map_id="' . $post->ID . '" map_height="300" shortcode_header="1" show_gallery="0"]'); ?>
+		</article>
+		<?php endwhile;endif;?>
 </div>
 
 <?php map_first_archive_pagination();?>
