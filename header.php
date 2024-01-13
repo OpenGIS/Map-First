@@ -44,7 +44,7 @@ $menu_list = str_replace(
 
 		<style type="text/css">
 			/* Reset common HTML elements */
-			html, body, pre, code, strong, b, ol, form, label, legend, table {
+			html, body, pre, code, ol, form, label, legend, table {
 				background-color: <?php echo get_theme_mod('map_first_body_background', '#eeeeee'); ?>;
 				color: <?php echo get_theme_mod('map_first_body_color', '#111111'); ?>;
 			}
