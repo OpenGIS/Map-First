@@ -14,7 +14,6 @@
 
 // Check for Waymark
 if (!class_exists('Waymark_Helper')) {
-
 	// Admin
 	if (is_admin() && current_user_can('manage_options')) {
 		// Display admin notice
@@ -40,6 +39,13 @@ if (!class_exists('Waymark_Helper')) {
 		die('<h1>Map First requires <a href="https://www.waymark.dev/">Waymark</a>!</h1>');
 	}
 }
+
+// Theme assets
+function map_first_enqueue_assets() {
+	wp_enqueue_style('map-first', get_template_directory_uri() . '/dist/map-first.css');
+	wp_enqueue_script('map-first', get_template_directory_uri() . '/dist/map-first.js', [], false, true);
+}
+add_action('wp_enqueue_scripts', 'map_first_enqueue_assets');
 
 function map_first_pre_get_posts($query) {
 	if (is_archive() && is_tax('waymark_collection')) {
@@ -180,7 +186,7 @@ function map_first_breadcrumb() {
 				});
 
 				$crumbs[] = array(
-					'prepend' => ' Map / ',
+					// 'prepend' => ' Map / ',
 					'text' => $collections[0]->name,
 					'link' => get_term_link($collections[0]),
 				);
@@ -272,17 +278,6 @@ function map_first_breadcrumb() {
 
 	}
 }
-
-function map_first_enqueue_assets() {
-	//CSS
-	wp_enqueue_style('bootstrap', get_template_directory_uri() . '/assets/css/bootstrap.min.css', false, '4.3.1');
-	wp_enqueue_style('map-first', get_template_directory_uri() . '/assets/css/map-first.css');
-
-	//JS
-	wp_enqueue_script('bootstrap', get_template_directory_uri() . '/assets/js/bootstrap.min.js', array('jquery'), '4.3.1', true);
-	wp_enqueue_script('map-first', get_template_directory_uri() . '/assets/js/map-first.js', array('bootstrap'), false, true);
-}
-add_action('wp_enqueue_scripts', 'map_first_enqueue_assets');
 
 //Thanks! https://njengah.com/wordpress-custom-pagination/
 function map_first_archive_pagination() {

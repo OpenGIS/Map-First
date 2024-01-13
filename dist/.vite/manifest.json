@@ -1,0 +1,10 @@
+{
+  "src/js/main.js": {
+    "css": [
+      "map-first.css"
+    ],
+    "file": "map-first.js",
+    "isEntry": true,
+    "src": "src/js/main.js"
+  }
+}
