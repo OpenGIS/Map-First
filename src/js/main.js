@@ -11,6 +11,7 @@
  **/
 
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "@/less/main.less";
 
 // Once the DOM is fully loaded.
@@ -56,7 +57,7 @@ jQuery("document").ready(function () {
  * https://www.waymark.dev/docs/callback-function/
  * https://www.waymark.dev/docs/shortcodes/#callback-function
  **/
-function map_first_single(Waymark) {
+window.map_first_single = function (Waymark) {
   // Check for the Map First Sidebar
   if (!jQuery(".map-first-sidebar").length) {
     return false;
@@ -149,4 +150,4 @@ function map_first_single(Waymark) {
   });
 
   container.append(overlays_content);
-}
+};
