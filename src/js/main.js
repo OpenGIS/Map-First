@@ -28,7 +28,8 @@ jQuery("document").ready(function () {
 
   // When the button is clicked, toggle the "show" class on the header
   button.click(function () {
-    header.toggleClass("show");
+    // Slide up/down
+    header.slideToggle();
   });
 
   /*
@@ -82,7 +83,7 @@ window.map_first_single = function (Waymark) {
   const container = jQuery(".map-first-sidebar-content").empty();
 
   // Adjust the container height
-  container.css("height", Waymark.jq_map_container.height());
+  // container.css("height", Waymark.jq_map_container.height());
 
   let overlays_content = jQuery(`<div />`).addClass(
     "waymark-overlays waymark-accordion-container",

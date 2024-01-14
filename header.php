@@ -68,7 +68,7 @@ $menu_list = str_replace(
 			}
 			main a:hover,
 			.pagination a:hover,
-			main a,
+			footer a, main a,
 			.pagination a {
 				color: <?php echo get_theme_mod('map_first_link_color', '#0056b3'); ?>;
 			}
