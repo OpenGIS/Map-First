@@ -20,6 +20,9 @@ header {
 	z-index: 1000;
 
 	.navbar {
+		padding-left: 10px;
+		padding-right: 10px;
+
 		.container-fluid {
 			padding: 0;
 			z-index: 2000;
@@ -62,13 +65,15 @@ body.home {
 		width: 100%;
 		height: calc(100% - 60px);
 
-		&.admin-bar {
-			top: 95px;
-			height: calc(100% - 95px);
-		}
-
 		.waymark-map {
 			height: 100% !important;
+		}
+	}
+
+	&.admin-bar {
+		.waymark-shortcode {
+			top: 95px;
+			height: calc(100% - 95px);
 		}
 	}
 }
@@ -95,8 +100,8 @@ main.container-fluid {
 
 	//Popup
 	.waymark-info-description {
-		height: 200px;
-		max-height: unset !important;
+		max-height: 200px !important;
+		// max-height: unset !important;
 		// Pretty up tables
 		table {
 			width: 100%;
