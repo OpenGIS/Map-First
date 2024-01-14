@@ -132,7 +132,7 @@ function map_first_customize_register($wp_customize) {
 }
 add_action('customize_register', 'map_first_customize_register');
 
-function map_first_widget() {
+function map_first_widgets() {
 	register_sidebar(array(
 		'name' => 'Map First Header Content',
 		'id' => 'map-first-header-content',
@@ -141,8 +141,15 @@ function map_first_widget() {
 		'before_title' => '<h4 class="text-white">',
 		'after_title' => '</h4>',
 	));
+
+	register_sidebar(array(
+		'name' => 'Map First Footer Content',
+		'id' => 'map-first-footer-content',
+		'before_widget' => '<div>',
+		'after_widget' => '</div>',
+	));
 }
-add_action('widgets_init', 'map_first_widget');
+add_action('widgets_init', 'map_first_widgets');
 
 function map_first_menu() {
 	register_nav_menu('map-first-header-nav', 'Map First Header Nav');

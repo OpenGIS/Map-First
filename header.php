@@ -83,10 +83,7 @@ $menu_list = str_replace(
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-8 col-md-7 py-4">
-							<?php if (function_exists('dynamic_sidebar')) {
-	dynamic_sidebar('map-first-header-content');
-}
-?>
+							<?php if (function_exists('dynamic_sidebar')) {dynamic_sidebar('map-first-header-content');}?>
 						</div>
 						<div class="col-sm-4 offset-md-1 py-4">
 

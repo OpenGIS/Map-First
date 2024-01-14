@@ -46,6 +46,7 @@ if (sizeof($map_meta)) {
 		</div>
 
 		<div class="map-first-sidebar"><?php
+
 // Get Map data
 $map_data = $Map->data['map_data'];
 
@@ -64,5 +65,4 @@ echo Waymark_Helper::overlays_list_html($overlays);
 
 <?php map_first_single_pagination();?>
 
-<!-- <?php get_sidebar();?> -->
 <?php get_footer();?>

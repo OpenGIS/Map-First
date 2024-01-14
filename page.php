@@ -28,7 +28,7 @@ if (have_posts()) {
 	<?php
 }
 
-	echo '<hr />' . "\n";
+	echo '<hr class="py-2" />' . "\n";
 
 	//Home?
 	if (is_front_page()) {
@@ -79,6 +79,4 @@ if (have_posts()) {
 }
 ?>
 
-
-<?php get_sidebar();?>
 <?php get_footer();?>
