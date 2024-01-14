@@ -14,7 +14,7 @@
  * @since 1.0.0
  */
 
-/* Nav Bar */
+/* header */
 header {
 	position: sticky;
 	z-index: 1000;
@@ -56,6 +56,13 @@ header {
 	}
 }
 
+/* Footer */
+footer {
+	margin-top: 15px;
+	padding-top: 15px;
+	text-align: center;
+}
+
 /* Home */
 body.home {
 	.waymark-shortcode {
@@ -80,6 +87,18 @@ body.home {
 
 /* Collection Archive */
 body.archive.tax-waymark_collection {
+	// .waymark-shortcode {
+	// 	position: absolute;
+	// 	top: 60px;
+	// 	left: 0;
+	// 	width: 100%;
+	// }
+
+	// &.admin-bar {
+	// 	top: 95px;
+	// 	height: calc(100% - 95px);
+	// }
+
 	.waymark-title {
 		background: none;
 	}
@@ -150,6 +169,21 @@ main.container-fluid {
 
 		.waymark-title {
 			font-weight: normal !important;
+		}
+	}
+}
+
+/* Default Post/Page */
+body.page,
+body.post {
+	main {
+		padding: 30px;
+		article h1 {
+			margin: 30px 0;
+		}
+
+		hr {
+			margin-top: 45px;
 		}
 	}
 }

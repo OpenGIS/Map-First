@@ -41,5 +41,4 @@ if (have_posts()) {
 
 <?php map_first_archive_pagination();?>
 
-<?php get_sidebar();?>
 <?php get_footer();?>

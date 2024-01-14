@@ -11,7 +11,16 @@ A minimal WordPress theme with an obsession for Maps.
 
 ### Features
 
-<!-- TODO: List theme features -->
+#### Settings
+
+The following theme settings are available in the Customizer (`Appearance > Customize`):
+
+-  Header Logo Image
+-  Header Background Colour
+-  Header Text Colour
+-  Page Background Colour
+-  Page Text Colour
+-  Content Link Colour
 
 ## Screenshots
 
