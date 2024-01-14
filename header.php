@@ -44,14 +44,16 @@ $menu_list = str_replace(
 
 		<style type="text/css">
 			/* Reset common HTML elements */
-			html, body, pre, code, ol, form, label, legend, table {
+			html, body, pre, code, ol, form{
 				background-color: <?php echo get_theme_mod('map_first_body_background', '#eeeeee'); ?>;
 				color: <?php echo get_theme_mod('map_first_body_color', '#111111'); ?>;
 			}
+			.map-first-sidebar legend,
 			.waymark-shortcode .waymark-header,
 			.navbar, #navbarHeader, .navbar select {
 				background-color: <?php echo get_theme_mod('map_first_header_background', '#212529'); ?> !important;
 			}
+			.map-first-sidebar legend,
 			.waymark-shortcode .waymark-header,
 			.navbar *, #navbarHeader * {
 				color: <?php echo get_theme_mod('map_first_header_color', '#fff'); ?> !important;
@@ -112,7 +114,6 @@ $menu_list = str_replace(
 							<span class="site-name">
 								<?php echo get_bloginfo('name', 'display'); ?>
 							</span>
-
 						</a>
 						<?php endif;?>
 

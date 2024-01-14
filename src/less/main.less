@@ -93,15 +93,33 @@ main.container-fluid {
 .leaflet-container {
 	background: none !important;
 
+	//Popup
+	.waymark-info-description {
+		height: 200px;
+		max-height: unset !important;
+		// Pretty up tables
+		table {
+			width: 100%;
+			height: 300;
+
+			border-collapse: collapse;
+			border-spacing: 0;
+
+			// Alternate row colors
+			tr:nth-child(even) {
+				background: #f8f8f8;
+			}
+
+			th,
+			td {
+				padding: 5px;
+				border: 1px solid #ccc;
+				text-align: left;
+			}
+		}
+	}
+
 	.leaflet-control-container {
-		// .leaflet-left {
-		// 	margin-left: 5px;
-		// }
-
-		// .leaflet-right {
-		// 	margin-right: 5px;
-		// }
-
 		.leaflet-control-zoom {
 			display: none;
 		}
@@ -133,21 +151,27 @@ main.container-fluid {
 
 /* Map Single */
 body.single-waymark_map {
-	// Sidebar
-	article.type-waymark_map .row {
+	// Map Wrapper
+	article.type-waymark_map .row.map-first-single {
 		// Remove margin from first and last child
-		> *:last-child,
-		> *:first-child {
+		.map-first-map,
+		.map-first-sidebar {
 			padding: 0;
 		}
 
-		// padding: 0 10px;
-		// width: 280px;
-		overflow: auto;
+		.map-first-sidebar {
+			.map-first-sidebar-content {
+				overflow: auto;
+				// height: calc(100vh - 60px);
+			}
+		}
 
 		legend {
+			margin-bottom: 0;
+			border-radius: 0;
 			padding: 10px !important;
 			font-size: 16px !important;
+			border: none;
 		}
 
 		.waymark-overlays {
@@ -247,16 +271,48 @@ body.single-waymark_map {
 		float: right;
 		margin: 0 0 10px 10px;
 	}
+
+	//Meta
+	.waymark-map-meta {
+		.waymark-meta-group-title {
+			padding: 15px;
+			font-size: 20px;
+			text-transform: uppercase;
+			text-align: center;
+			span {
+				display: none;
+			}
+		}
+		.waymark-accordion-group-content {
+			display: block !important;
+
+			.waymark-meta-item {
+				font-size: 16px;
+			}
+		}
+	}
 }
 
 /* Mobile */
-@media (max-width: 480px) {
+@media (max-width: 1024px) {
 	.waymark-map {
 		max-height: 400px;
 
-		// Hide on mobile
-		.waymark-gallery-container {
-			display: none !important;
+		&.waymark-has-gallery {
+			// Hide on mobile
+			.waymark-gallery-container {
+				display: none !important;
+			}
+
+			.leaflet-bottom {
+				bottom: 0 !important;
+			}
+		}
+	}
+
+	.waymark-overlay-content {
+		.waymark-overlay-property-title {
+			width: 330px !important;
 		}
 	}
 

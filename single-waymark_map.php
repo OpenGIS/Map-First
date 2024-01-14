@@ -28,30 +28,12 @@ get_header();?>
 // Output Map using Waymark Shortcode
 // Here we also pass the name of the JavaScript function to call when
 // Waymark has finished loading, defined below
-echo do_shortcode('[Waymark
-  shortcode_header="0"
-  show_elevation="1"
-  loaded_callback="map_first_single"
-  map_id="' . get_the_ID() . '"
-]');
-
-$map_meta = Waymark_Helper::get_map_meta($Map);
+echo do_shortcode('[Waymark shortcode_header="0" show_elevation="1" loaded_callback="map_first_single" map_id="' . get_the_ID() . '"]');
 ?>
-</div>
+		</div>
+
 		<!-- Sidebar: Full width on mobile, 25% otherwise -->
 		<div class="map-first-sidebar col-sm-12 col-md-3">
-			<!-- WordPress custom post type Thumbnail -->
-			<?php if (has_post_thumbnail()): ?>
-
-				<!-- Hide on mobile -->
-			<div class="map-first-image d-none d-md-block">
-
-				<?php the_post_thumbnail('large', array(
-	'class' => 'img-fluid',
-));?>
-			</div>
-			<?php endif;?>
-
 			<div class="map-first-sidebar-content">
 			<?php
 // Get Map data
@@ -66,9 +48,51 @@ $overlays = Waymark_GeoJSON::features_by_overlay_type($map_data);
 // Output Overlays
 echo Waymark_Helper::overlays_list_html($overlays);
 ?>
+			</div>
 		</div>
+		<!-- END Sidebar -->
 	</div>
+	<!-- END Map -->
 </article>
+
+<hr />
+
+<!-- START Map Meta -->
+<div class="map-first-meta row m-3">
+	<!-- Meta -->
+	<div class="map-first-meta-content col-sm-12 col-md-9">
+		<h2><?php the_title();?></h2>
+
+<?php
+// Get Map Meta
+$map_meta = Waymark_Helper::get_map_meta($Map);
+
+//Do we have something to display?
+if (sizeof($map_meta)) {
+// Remove 'map_thumbnail' from meta
+	unset($map_meta['map_thumbnail']);
+
+// Waymark_Helper::debug($map_meta);
+
+	echo Waymark_Helper::map_meta_html($map_meta, false);
+}
+//END Meta
+
+?>
+
+	</div>
+	<!-- END Meta -->
+
+	<!-- Image -->
+	<?php if (has_post_thumbnail()): ?>
+	<!-- Hide on mobile -->
+	<div class="map-first-image col-md-3">
+		<?php the_post_thumbnail('large', array('class' => 'img-fluid'));?>
+	</div>
+	<?php endif;?>
+</div>
+<!-- END Map Meta -->
+
 
 <?php map_first_single_pagination();?>
 
