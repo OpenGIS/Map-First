@@ -20,7 +20,7 @@ header {
 	z-index: 1000;
 
 	.navbar {
-		.container {
+		.container-fluid {
 			padding: 0;
 			z-index: 2000;
 
@@ -29,7 +29,7 @@ header {
 				text-decoration: underline !important;
 			}
 
-			&.navbar-brand {
+			.navbar-brand {
 				margin-right: 0.5rem;
 
 				a {
@@ -100,7 +100,9 @@ body.archive.tax-waymark_collection {
 }
 
 /* Main Content */
-main {
+main.container-fluid {
+	padding: 0;
+
 	article {
 		font-size: 17px;
 	}
@@ -109,13 +111,55 @@ main {
 /* Leaflet  */
 .leaflet-container {
 	background: none !important;
+
+	//Popup
+	.waymark-info-description {
+		height: 200px;
+		max-height: unset !important;
+		// Pretty up tables
+		table {
+			width: 100%;
+			height: 300;
+
+			border-collapse: collapse;
+			border-spacing: 0;
+
+			// Alternate row colors
+			tr:nth-child(even) {
+				background: #f8f8f8;
+			}
+
+			th,
+			td {
+				padding: 5px;
+				border: 1px solid #ccc;
+				text-align: left;
+			}
+		}
+	}
+
+	.leaflet-control-container {
+		.leaflet-control-zoom {
+			display: none;
+		}
+
+		.leaflet-control-locate,
+		.leaflet-control-fullscreen {
+			padding: 4px;
+			background: #fff;
+			color: #333;
+			border-color: #9c9c9c;
+		}
+	}
 }
 
 /* Shortcodes */
 .waymark-shortcode {
+	margin-bottom: 0 !important;
 	border: none !important;
 
 	.waymark-header {
+		// padding: 10px 15px !important;
 		font-size: 13px;
 
 		.waymark-title {
@@ -140,21 +184,27 @@ body.post {
 
 /* Map Single */
 body.single-waymark_map {
-	.map-first-single {
-		display: flex;
-
-		.map-first-map {
-			flex: 2;
+	// Map Wrapper
+	article.type-waymark_map .row.map-first-single {
+		// Remove margin from first and last child
+		.map-first-map,
+		.map-first-sidebar {
+			padding: 0;
 		}
-	}
 
-	.map-first-sidebar {
-		padding: 0 10px;
-		width: 280px;
+		.map-first-sidebar {
+			.map-first-sidebar-content {
+				overflow: auto;
+				// height: calc(100vh - 60px);
+			}
+		}
 
 		legend {
+			margin-bottom: 0;
+			border-radius: 0;
 			padding: 10px !important;
 			font-size: 16px !important;
+			border: none;
 		}
 
 		.waymark-overlays {
@@ -170,17 +220,31 @@ body.single-waymark_map {
 			}
 
 			.waymark-overlay-content {
+				padding: 0;
 				display: flex;
-				height: 40px;
-				line-height: 40px;
+				height: 36px;
+				line-height: 30px;
 				overflow: hidden;
-				border-bottom: 1px solid #333;
-				border-top: 1px solid #333;
 				cursor: pointer;
+				border-bottom: 1px solid #ccc;
 
-				&.waymark-overlay-has-image::after {
-					margin-top: 5px;
-					content: " 🖼";
+				&:last-child {
+					border-bottom: none;
+				}
+
+				&.waymark-overlay-has-image {
+					&::after {
+						margin-top: 5px;
+
+						content: " 🖼";
+					}
+
+					// Alignment tweak
+					&:not(.waymark-overlay-has-desc) {
+						&::after {
+							margin-left: 22px;
+						}
+					}
 				}
 
 				&.waymark-overlay-has-desc::after {
@@ -196,6 +260,12 @@ body.single-waymark_map {
 				.waymark-overlay-property-title {
 					padding: 5px;
 					width: 220px;
+					font-size: 14px;
+
+					// Untitled
+					em {
+						color: #ccc;
+					}
 				}
 
 				.waymark-overlay-property-type,
@@ -228,19 +298,76 @@ body.single-waymark_map {
 			}
 		}
 	}
+
+	// Image
+	.waymark-map-thumbnail {
+		float: right;
+		margin: 0 0 10px 10px;
+	}
+
+	//Meta
+	.waymark-map-meta {
+		.waymark-meta-group-title {
+			padding: 15px;
+			font-size: 20px;
+			text-transform: uppercase;
+			text-align: center;
+			span {
+				display: none;
+			}
+		}
+		.waymark-accordion-group-content {
+			display: block !important;
+
+			.waymark-meta-item {
+				font-size: 16px;
+			}
+		}
+	}
 }
 
 /* Mobile */
 @media (max-width: 1024px) {
+	.waymark-map {
+		max-height: 400px;
+
+		&.waymark-has-gallery {
+			// Hide on mobile
+			.waymark-gallery-container {
+				display: none !important;
+			}
+
+			.leaflet-bottom {
+				bottom: 0 !important;
+			}
+		}
+	}
+
+	.waymark-overlay-content {
+		.waymark-overlay-property-title {
+			width: 330px !important;
+		}
+	}
+
 	.navbar {
-		.container {
+		min-height: 65px;
+		// line-height: 65px;
+
+		.container-fluid {
 			position: relative;
 			padding-right: 65px;
+
+			.navbar-brand {
+				.site-name {
+					display: none;
+				}
+			}
 
 			.navbar-toggler {
 				position: absolute;
 				top: 0;
 				right: 0;
+				padding: 3px 8px;
 			}
 		}
 	}

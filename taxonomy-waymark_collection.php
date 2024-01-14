@@ -26,7 +26,11 @@ get_header();?>
 	<?php echo do_shortcode('[Waymark collection_id="' . get_queried_object()->term_id . '" show_gallery="0" shortcode_header="0"]'); ?>
 
 	<!-- Collection Description -->
-	<p class="lead text-center mb-5"><?php echo get_queried_object()->description; ?></p>
+	<?php if (term_description()): ?>
+	<div class="px-3">
+		<p class="lead text-center mb-5"><?php echo term_description() ?></p>
+	</div>
+	<?php endif;?>
 </article>
 
 <?php map_first_archive_pagination();?>

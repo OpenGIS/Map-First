@@ -10,7 +10,6 @@
  *
  **/
 
-// import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@/less/main.less";
 
@@ -32,17 +31,24 @@ jQuery("document").ready(function () {
     header.toggleClass("show");
   });
 
-  // You could use the body class to target specific pages.
-  var body = jQuery("body").first();
-  switch (true) {
+  /*
+  // By WordPress page type
+  switch(true) {
+    
     //Single Map Page
-    case body.hasClass("single-waymark_map"):
+    
+    case body.hasClass('single-waymark_map') :
+      console.log('Single Map Page');
+      
       break;
-
-    //Collection Page
-    case body.hasClass("tax-waymark_collection"):
-      break;
-  }
+    
+    //Collection
+    case body.hasClass('tax-waymark_collection') :
+      console.log('Collection Page');
+      
+      break;    
+  }  
+*/
 });
 
 /**
@@ -73,7 +79,11 @@ window.map_first_single = function (Waymark) {
     return false;
   }
 
-  const container = jQuery(".map-first-sidebar").empty();
+  const container = jQuery(".map-first-sidebar-content").empty();
+
+  // Adjust the container height
+  container.css("height", Waymark.jq_map_container.height());
+
   let overlays_content = jQuery(`<div />`).addClass(
     "waymark-overlays waymark-accordion-container",
   );
@@ -126,15 +136,32 @@ window.map_first_single = function (Waymark) {
 
           group_content.append(
             jQuery("<div />")
-              .attr("href", "#")
+              .attr({
+                href: "#",
+                title: "Click to Focus on this " + type_data[type + "_title"],
+              })
               .css("display", "block")
               .html(overlay_content)
               .addClass("waymark-overlay-content")
               .on("click", (e) => {
                 e.preventDefault();
 
-                // Open popup
-                layer.openPopup();
+                // Close all popups
+                Waymark.map.closePopup();
+
+                // Hide .waymarkmap-first-image
+                jQuery(".map-first-sidebar .map-first-image").hide();
+
+                // Trigger click on .waymark-elevation-close button to close elevation popup
+                jQuery(".waymark-elevation-close").trigger("click");
+
+                //Smooth scroll to main content <main role="main">
+                jQuery("html, body").animate(
+                  {
+                    scrollTop: jQuery("main").offset().top,
+                  },
+                  500,
+                );
 
                 switch (type) {
                   case "marker":
@@ -148,6 +175,9 @@ window.map_first_single = function (Waymark) {
                     Waymark.map.fitBounds(layer.getBounds());
                     break;
                 }
+
+                // Open popup
+                layer.openPopup();
               }),
           );
 

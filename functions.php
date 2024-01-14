@@ -262,6 +262,8 @@ function map_first_breadcrumb() {
 			$post_children = get_posts(array(
 				'post_type' => 'page',
 				'post_parent' => '0',
+				// Exclude home itself
+				'exclude' => get_option('page_on_front'),
 			));
 		} else {
 			$post_children = get_posts(array(

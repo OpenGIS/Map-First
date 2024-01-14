@@ -15,7 +15,7 @@ if (array_key_exists('map-first-header-nav', $theme_locations)) {
 
 $menu_list = wp_nav_menu(array(
 	'theme_location' => 'map-first-header-nav',
-	'container' => false,
+	'container-fluid' => false,
 	'menu_class' => 'list-unstyled',
 	'echo' => false,
 	'fallback_cb' => false,
@@ -44,14 +44,16 @@ $menu_list = str_replace(
 
 		<style type="text/css">
 			/* Reset common HTML elements */
-			html, body, pre, code, strong, b, ol, form, label, legend, table {
+			html, body, pre, code, ol, form{
 				background-color: <?php echo get_theme_mod('map_first_body_background', '#eeeeee'); ?>;
 				color: <?php echo get_theme_mod('map_first_body_color', '#111111'); ?>;
 			}
+			.map-first-sidebar legend,
 			.waymark-shortcode .waymark-header,
 			.navbar, #navbarHeader, .navbar select {
 				background-color: <?php echo get_theme_mod('map_first_header_background', '#212529'); ?> !important;
 			}
+			.map-first-sidebar legend,
 			.waymark-shortcode .waymark-header,
 			.navbar *, #navbarHeader * {
 				color: <?php echo get_theme_mod('map_first_header_color', '#fff'); ?> !important;
@@ -80,7 +82,7 @@ $menu_list = str_replace(
 		<!-- START Header -->
 		<header>
 			<div class="collapse bg-dark" id="navbarHeader">
-				<div class="container">
+				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-8 col-md-7 py-4">
 							<?php if (function_exists('dynamic_sidebar')) {dynamic_sidebar('map-first-header-content');}?>
@@ -94,18 +96,26 @@ $menu_list = str_replace(
 				</div>
 			</div>
 
-			<div class="navbar navbar-dark bg-dark shadow-sm mb-2">
-				<div class="container justify-content-between">
+			<div class="navbar navbar-dark bg-dark shadow-sm">
+				<div class="container-fluid justify-content-between">
 					<div class="navbar-left">
 						<!-- Brand -->
 						<?php if (is_front_page()): ?>
 						<span class="navbar-brand"><?php if ($header_logo = get_theme_mod('map_first_header_logo', '')): ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo('name', 'display'); ?>" /><?php endif;?><?php echo get_bloginfo('name', 'display'); ?></span>
 						<?php else: ?>
-						<a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand"><?php if ($header_logo = get_theme_mod('map_first_header_logo', '')): ?><img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo('name', 'display'); ?>" /><?php endif;?><?php echo get_bloginfo('name', 'display'); ?></a>
+						<a href="<?php echo esc_url(home_url('/')); ?>" class="navbar-brand">
+							<?php if ($header_logo = get_theme_mod('map_first_header_logo', '')): ?>
+								<img src="<?php echo $header_logo; ?>" alt="<?php echo get_bloginfo('name', 'display'); ?>" />
+							<?php endif;?>
+
+							<span class="site-name">
+								<?php echo get_bloginfo('name', 'display'); ?>
+							</span>
+						</a>
 						<?php endif;?>
 
 						<!-- Breadcrumb -->
-						<div class="navbar-text pt-0">
+						<div class="navbar-text">
 							<?php map_first_breadcrumb();?>
 						</div>
   				</div>
@@ -120,4 +130,4 @@ $menu_list = str_replace(
 		<!-- END Header -->
 
 		<!-- START Main -->
-		<main role="main" class="container">
+		<main role="main" class="container-fluid">
