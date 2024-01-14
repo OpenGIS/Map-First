@@ -48,10 +48,12 @@ $menu_list = str_replace(
 				background-color: <?php echo get_theme_mod('map_first_body_background', '#eeeeee'); ?>;
 				color: <?php echo get_theme_mod('map_first_body_color', '#111111'); ?>;
 			}
-			.map-first-sidebar legend,
 			.waymark-shortcode .waymark-header,
 			.navbar, #navbarHeader, .navbar select {
 				background-color: <?php echo get_theme_mod('map_first_header_background', '#212529'); ?> !important;
+			}
+			.map-first-sidebar legend {
+				background-color: <?php echo get_theme_mod('map_first_header_background', '#212529'); ?>90 !important;
 			}
 			.map-first-sidebar legend,
 			.waymark-shortcode .waymark-header,
