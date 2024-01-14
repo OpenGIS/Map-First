@@ -55,8 +55,6 @@ echo Waymark_Helper::overlays_list_html($overlays);
 	<!-- END Map -->
 </article>
 
-<hr />
-
 <!-- START Map Meta -->
 <div class="map-first-meta row m-3">
 	<!-- Meta -->

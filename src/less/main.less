@@ -69,13 +69,15 @@ body.home {
 		width: 100%;
 		height: calc(100% - 60px);
 
-		&.admin-bar {
-			top: 95px;
-			height: calc(100% - 95px);
-		}
-
 		.waymark-map {
 			height: 100% !important;
+		}
+	}
+
+	&.admin-bar {
+		.waymark-shortcode {
+			top: 95px;
+			height: calc(100% - 95px);
 		}
 	}
 }
@@ -172,6 +174,7 @@ main.container-fluid {
 body.page,
 body.post {
 	main {
+		padding: 30px;
 		article h1 {
 			margin: 30px 0;
 		}
