@@ -60,6 +60,9 @@ $menu_list = str_replace(
 			.navbar *, #navbarHeader * {
 				color: <?php echo get_theme_mod('map_first_header_color', '#fff'); ?> !important;
 			}
+			#navbarHeader a {
+				border-bottom: 1px dashed <?php echo get_theme_mod('map_first_header_color', '#ffffff'); ?> !important;
+			}
 			.navbar-toggler-icon {
 				background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='<?php echo urlencode(get_theme_mod('map_first_header_color', '#ffffff')); ?>' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
 			}
