@@ -1,6 +1,6 @@
 # Map First
 
-## A Minimal Wordpress Theme With An Obsession For Maps.
+## A Minimal Wordpress Theme With An Obsession For Maps
 
 Turn your WordPress site into a Map-First experience to showcase your Geographic data.
 
@@ -30,6 +30,7 @@ It has some nice features for customising how Mapping data is integrated with Wo
 
 -  Maps can be embedded anywhere using the `[Waymark]` [Shortcode](https://www.waymark.dev/docs/shortcodes/) anywhere Shortcodes are supported.
 -  Most elements can be [styled using CSS](https://www.waymark.dev/docs/styling-with-css-selectors/) and have sensibly named `waymark-` classes.
+-  Geographical features are stored in the [GeoJSON format](https://geojson.org/).
 -  Maps are stored using the [Custom Post Type](https://developer.wordpress.org/plugins/post-types/registering-custom-post-types/) `waymark_map`.
 -  Meta is stored as [Custom Fields](https://developer.wordpress.org/plugins/metadata/managing-post-metadata/) (prefixed with `waymark_`).
 -  Maps can be grouped using Collections, which use the `waymark_collection` [Taxonomy](https://developer.wordpress.org/plugins/taxonomies/working-with-custom-taxonomies/).
