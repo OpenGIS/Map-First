@@ -1,6 +1,6 @@
 # Map First
 
-## A Minimal Wordpress Theme With An Obsession For Maps.
+## A Minimal Wordpress Theme With An Obsession For Maps
 
 Turn your WordPress site into a Map-First experience to showcase your Geographic data.
 
