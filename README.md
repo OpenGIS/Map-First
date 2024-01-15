@@ -4,20 +4,20 @@ A minimal WordPress theme with an obsession for Maps.
 
 Turn your WordPress site into a Map-First experience to showcase your Geographic data.
 
-Designed for use with [Waymark](https://github.com/OpenGIS/Waymark), Map First is a minimal WordPress theme that demonstrates many of Waymark's features. View the source code to see comments that explain how the theme works, or use it as the starting point for custom a Geographical Information System (GIS) powered by WordPress.
+Designed for use with [Waymark](https://github.com/OpenGIS/Waymark), Map First is a minimal WordPress theme that demonstrates many of Waymark's features. View the source code to see comments that explain how the theme works, or use it to start building a custom Geographical Information System (GIS) powered by WordPress.
 
-<!-- TODO: Add link to demo site -->
+**[View the Demo](https://www.ogis.app/yosemite/)**
 
-**Demo**
+![Screenshot of Map First WordPress theme](https://www.ogis.app/yosemite/wp-content/themes/map-first/screenshot.png)
 
 ## Features
 
 -  Minimal, responsive design for viewing Maps on screens big and small.
 -  Display **all** of your Maps on the homepage.
--  Clicking an Overlay (Marker/Line/Shape) on the homepage provides a link to the Map Details page (and Collection if applicable).
--  Each Collection Details page displays both one a single Map featuring all child Maps, as well as each Map individually.
+-  Clicking an Overlay (Marker/Line/Shape) on the homepage provides a link to the [Map Details](https://www.ogis.app/yosemite/map/half-dome/) page (and Collection if applicable).
+-  Each [Collection Details](https://www.ogis.app/yosemite/collection/hikes/) page displays a large Map featuring all child Maps, as well as each Map individually.
 -  The Map Details page includes an interactive Overlay Sidebar.
--  Organise your site content in nested Pages, which are displayed in the header menu.
+-  Organise your site content as regular Pages, a minimal navigation is added to the site header.
 
 > [!IMPORTANT]
 > Map First requires the [Waymark WordPress plugin](https://github.com/OpenGIS/Waymark) to be installed and activated.
@@ -48,10 +48,6 @@ The following theme settings are available in the Customizer (`Appearance > Cust
 
 Custom content can also be added to the site Header and Footer as [Widgets](https://wordpress.org/support/article/wordpress-widgets/) via the Customizer (`Appearance > Customize`).
 
-## Screenshots
-
-<!-- TODO: Add screenshot of theme -->
-
 ## Installation
 
 Like any WordPress theme, it can be installed via the WordPress admin or by manually uploading the theme files.
@@ -63,7 +59,7 @@ To start, download the [latest release](https://codeload.github.com/morehawes/ma
 1. In your WordPress admin, go to `Appearance > Themes`.
 2. Click `Add New`.
 3. Click `Upload Theme`.
-4. Upload the `map-first.zip` file you downloaded
+4. Upload the `map-first.zip` file you downloaded.
 5. Click `Install Now`.
 6. Click `Activate`.
 
