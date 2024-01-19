@@ -72,12 +72,30 @@ To start, download the [latest release](https://codeload.github.com/morehawes/ma
 3. In your WordPress admin, go to `Appearance > Themes`.
 4. Click `Activate`.
 
+## Extending Map First
+
+WordPress theme (`.php`) files are located in the directory root, these contain comments to help you understand what's going on and where to make changes. If you're new to WordPress theme development, check out the [WordPress Theme Handbook](https://developer.wordpress.org/themes/).
+
+I recommend creating a child theme to make any changes, this will ensure your changes are not overwritten when the theme is updated.
+
+You can create a child theme by creating a new directory in `wp-content/themes/` and adding a `style.css` file with the following content:
+
+```css
+/*
+Theme Name: Map First Child
+Template: map-first
+*/
+```
+
+You can then activate your child theme in the WordPress admin (`Appearance > Themes`). Copy any of the theme files from the parent theme into your child theme directory, and make changes as needed.
+
+Feel free to use the [Feedback Form](https://forms.gle/mthqAgSsMoTPM8SR9) to share how you've used Map First, or to suggest improvements.
+
 ## Development
 
-The theme files contain comments to help you understand what's going on and where to make changes. If you're new to WordPress theme development, check out the [WordPress Theme Handbook](https://developer.wordpress.org/themes/).
-WordPress theme (`.php`) files are located in the directory root.
+If you would like to contribute to the development of the theme, please feel free to fork the repository and submit a pull request. Please provide a detailed description of the changes you've made, and why you think they should be included. Alternatively, you can [open an issue](https://github.com/OpenGIS/Waymark/issues) to discuss your idea.
 
-Production theme assets (`.css` and `.js`) are located in the `dist` directory. Source theme assets are located in the `src` directory, to rebuild the theme assets, you'll need to install the dependencies and run the build script, which will watch for changes in the `src` directory and update the content of `dist`.
+Edits made to the assets in the `src/` directory (JavaScript, LESS, etc) will need to be compiled before they can be used. To do this, you'll need to install the dependencies and run the build script ([Vite](https://vitejs.dev/) is awesome!):
 
 ```sh
 # Or npm/yarn install
@@ -85,7 +103,7 @@ pnpm install
 pnpm run build
 ```
 
-Pull requests welcome!
+All PRs welcome!
 
 ## Changelog
 
